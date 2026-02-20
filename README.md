@@ -1,4 +1,3 @@
-# InfraDonn_C
 # Brief C — Plan de remplacement des lampadaires
 
 ## Contexte
