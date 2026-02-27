@@ -6,27 +6,6 @@ La Commune dispose d'un crédit de CHF 50'000.- pour remplacer des lampadaires e
 
 ## Demande
 
-### Livrable 1 — Fiche de chaque lampadaire
-
-Produire une vue SQL qui affiche pour chaque lampadaire :
-
-- L'identifiant et le lieu
-- Le type (sodium / LED)
-- L'année d'installation
-- Le nombre de pannes (interventions)
-- Le coût cumulé des interventions
-- La date de la dernière intervention
-- Les coordonnées GPS
-
-### Livrable 2 — Classement de priorité
-
-Produire une vue SQL qui attribue un score de priorité à chaque lampadaire, calculé comme suit :
-
-- Nombre de pannes × 3
-- \+ âge en années × 2
-- \+ coût cumulé / 100
-
-Afficher les lampadaires triés par score décroissant.
 
 ### Livrable 3 — Sélection dans le budget
 
