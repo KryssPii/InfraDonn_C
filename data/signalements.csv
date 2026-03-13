@@ -1,204 +1,204 @@
-date;signale_par;objet;description;urgence;statut
-2024-07-08;Mme Weber;lampadaire LED près de Route de Lausanne;Éclaire mal;;
-2025-04-11;patrouille JM;banc Rue du Casino;Bois pourri côté gauche;;
-2024-09-03;concierge école;Lampadaire Passage de l'Hôtel de Ville;Vitre cassée;;fait
-2025-05-08;Mme Rochat;Banc près de Rue du Milieu;Tags / graffitis;;fait
-2024-07-18;email citoyen;panneau info Passage de l'Hôtel de Ville;Vitrine cassée;;en attente
-2024-12-18;;panneau Passage de l'Hôtel de Ville;Vitrine cassée;;en attente
+ï»¿date;signale_par;objet;description;urgence;statut
+2024-07-08;Mme Weber;lampadaire LED prÃ¨s de Route de Lausanne;Ã‰claire mal;;
+2025-04-11;patrouille JM;banc Rue du Casino;Bois pourri cÃ´tÃ© gauche;;
+2024-09-03;concierge Ã©cole;Lampadaire Passage de l'HÃ´tel de Ville;Vitre cassÃ©e;;fait
+2025-05-08;Mme Rochat;Banc prÃ¨s de Rue du Milieu;Tags / graffitis;;fait
+2024-07-18;email citoyen;panneau info Passage de l'HÃ´tel de Ville;Vitrine cassÃ©e;;en attente
+2024-12-18;;panneau Passage de l'HÃ´tel de Ville;Vitrine cassÃ©e;;en attente
 2025-03-27;Mme Dupont;fontaine Rue du Lac;Mousse/algues;;fait
-2024-04-13;patrouille JM;banc public près de Y-Parc;Tags / graffitis;;
-2025-01-06;Mme Weber;poubelle Rue du Casino;Brûlée;urgent;en attente
+2024-04-13;patrouille JM;banc public prÃ¨s de Y-Parc;Tags / graffitis;;
+2025-01-06;Mme Weber;poubelle Rue du Casino;BrÃ»lÃ©e;urgent;en attente
 2023-11-26;Mme Dupont;banc Rue de la Maison Rouge;Un pied est tordu;urgent;fait
-2024-09-19;Mme Rochat;le Lampadaire LED devant Plage d'Yverdon;Ampoule grillée;;
+2024-09-19;Mme Rochat;le Lampadaire LED devant Plage d'Yverdon;Ampoule grillÃ©e;;
 08.04.2022;Mme Rochat;banc Place de la Gare;Un pied est tordu;;en attente
-2024-04-13;patrouille JM;borne Avenue de la Gare;Câble manquant;;
-2023-04-01;Mme Dupont;le Lampadaire LED devant Plage d'Yverdon;Mât penché après la tempête;;fait
+2024-04-13;patrouille JM;borne Avenue de la Gare;CÃ¢ble manquant;;
+2023-04-01;Mme Dupont;le Lampadaire LED devant Plage d'Yverdon;MÃ¢t penchÃ© aprÃ¨s la tempÃªte;;fait
 2024-02-16;un passant;le corbeille devant Parc des Rives;Tags;normal;fait
 2025-11-19;email citoyen;le banc devant Chemin de Maillefer;Un pied est tordu;urgent;en cours
-15.03.2023;habitant du quartier;lampadaire sodium Passage de l'Hôtel de Ville;Clignote depuis 1 semaine;normal;
-2023-05-17;M. Pereira;Lampadaire Place de la Gare;Vitre cassée;;en attente
+15.03.2023;habitant du quartier;lampadaire sodium Passage de l'HÃ´tel de Ville;Clignote depuis 1 semaine;normal;
+2023-05-17;M. Pereira;Lampadaire Place de la Gare;Vitre cassÃ©e;;en attente
 15.04.2022;patrouille JM;le Lampadaire devant Avenue de la Gare;Clignote depuis 1 semaine;urgent;fait
-2024-01-12;M. Pereira;le banc public devant place de la gare;Vis qui dépassent;normal;
+2024-01-12;M. Pereira;le banc public devant place de la gare;Vis qui dÃ©passent;normal;
 2024-04-08;habitant du quartier;Banc Rue du Lac;Le dossier est fendu;normal;fait
-2025-11-04;un habitant;le borne recharge EV devant Avenue de la Gare;Écran cassé;;en cours
-2024-04-22;M. Pereira;banc près de Avenue de la Gare;Bois pourri côté gauche;;fait
-25.02.2023;un habitant;banc Rue du Lac;Lattes cassées;;en attente
-2024-01-01;un habitant;banc près de Rue du Casino;Le dossier est fendu;normal;fait
-28.08.2023;email citoyen;borne EV près de Route de Lausanne;Ne charge plus;normal;en attente
-2024-04-21;patrouille JM;borne recharge EV près de Passage de l'Hôtel de Ville;Écran cassé;urgent;
+2025-11-04;un habitant;le borne recharge EV devant Avenue de la Gare;Ã‰cran cassÃ©;;en cours
+2024-04-22;M. Pereira;banc prÃ¨s de Avenue de la Gare;Bois pourri cÃ´tÃ© gauche;;fait
+25.02.2023;un habitant;banc Rue du Lac;Lattes cassÃ©es;;en attente
+2024-01-01;un habitant;banc prÃ¨s de Rue du Casino;Le dossier est fendu;normal;fait
+28.08.2023;email citoyen;borne EV prÃ¨s de Route de Lausanne;Ne charge plus;normal;en attente
+2024-04-21;patrouille JM;borne recharge EV prÃ¨s de Passage de l'HÃ´tel de Ville;Ã‰cran cassÃ©;urgent;
 2023-04-26;M. Keller;le lampadaire LED devant Chemin de Maillefer;Ne s'allume plus;urgent;fait
-2023-04-09;;lampadaire Chemin de Maillefer;Ampoule grillée;;fait
-2025-04-19;concierge école;banc Rue du Casino;Un pied est tordu;urgent;fait
+2023-04-09;;lampadaire Chemin de Maillefer;Ampoule grillÃ©e;;fait
+2025-04-19;concierge Ã©cole;banc Rue du Casino;Un pied est tordu;urgent;fait
 2025-12-16;Mme Rochat;Fontaine Place de la Gare;Mousse/algues;;en attente
-2024-11-11;habitant du quartier;lampadaire LED près de Plage d'Yverdon;Clignote depuis 1 semaine;normal;fait
+2024-11-11;habitant du quartier;lampadaire LED prÃ¨s de Plage d'Yverdon;Clignote depuis 1 semaine;normal;fait
 2025-04-28;;le Fontaine devant Rue du Casino;Ne coule plus;;fait
-25.10.2023;concierge école;banc Avenue de la Gare;Bois pourri côté gauche;;en attente
-2023-09-07;Mme Weber;poubelle près de Passage de l'Hôtel de Ville;Tags;;en cours
-2024-03-26;patrouille JM;lampadaire led Avenue des Bains;Ampoule grillée;;fait
-2024-12-25;un habitant;le panneau affichage devant Rue de la Plaine;Vitrine cassée;;fait
-2025-04-10;Mme Dupont;le Lampadaire devant Avenue de la Gare;Ampoule grillée;;
+25.10.2023;concierge Ã©cole;banc Avenue de la Gare;Bois pourri cÃ´tÃ© gauche;;en attente
+2023-09-07;Mme Weber;poubelle prÃ¨s de Passage de l'HÃ´tel de Ville;Tags;;en cours
+2024-03-26;patrouille JM;lampadaire led Avenue des Bains;Ampoule grillÃ©e;;fait
+2024-12-25;un habitant;le panneau affichage devant Rue de la Plaine;Vitrine cassÃ©e;;fait
+2025-04-10;Mme Dupont;le Lampadaire devant Avenue de la Gare;Ampoule grillÃ©e;;
 12.08.2023;M. Keller;le Banc devant Rue du Lac;Un pied est tordu;;en attente
 2023-06-04;Mme Dupont;banc Route de Lausanne;Un pied est tordu;;fait
-2025-05-24;M. Keller;lampadaire led près de Avenue des Sports;Éclaire mal;;
-2025-05-16;un habitant;poubelle tri près de Avenue des Sports;Brûlée;;
-2024-09-02;un passant;poubelle Avenue des Bains;Renversée;;en attente
-2025-03-02;;banc Centre sportif;Bois pourri côté gauche;normal;en attente
+2025-05-24;M. Keller;lampadaire led prÃ¨s de Avenue des Sports;Ã‰claire mal;;
+2025-05-16;un habitant;poubelle tri prÃ¨s de Avenue des Sports;BrÃ»lÃ©e;;
+2024-09-02;un passant;poubelle Avenue des Bains;RenversÃ©e;;en attente
+2025-03-02;;banc Centre sportif;Bois pourri cÃ´tÃ© gauche;normal;en attente
 2024-03-14;;poubelle tri Avenue des Bains;Tags;;en attente
-23.06.2023;Mme Dupont;corbeille près de Rue des Pêcheurs;Tags;;
-2024-03-06;Mme Dupont;panneau affichage Rue de la Plaine;Affichage décollé;normal;fait
+23.06.2023;Mme Dupont;corbeille prÃ¨s de Rue des PÃªcheurs;Tags;;
+2024-03-06;Mme Dupont;panneau affichage Rue de la Plaine;Affichage dÃ©collÃ©;normal;fait
 2024-12-21;email citoyen;lampadaire Avenue des Sports;Clignote depuis 1 semaine;;en attente
-18.10.2023;un habitant;banc près de Avenue de la Garre;Lattes cassées;urgent;en attente
-2024-12-04;Mme Rochat;Banc Rue de la Plaine;Lattes cassées;;
-2023-01-19;Mme Weber;le Panneau devant Place de la Gare;Penché;;fait
-2024-09-10;un passant;fontaine Avenue de la Gare;Gel a abîmé la tuyauterie;;en attente
+18.10.2023;un habitant;banc prÃ¨s de Avenue de la Garre;Lattes cassÃ©es;urgent;en attente
+2024-12-04;Mme Rochat;Banc Rue de la Plaine;Lattes cassÃ©es;;
+2023-01-19;Mme Weber;le Panneau devant Place de la Gare;PenchÃ©;;fait
+2024-09-10;un passant;fontaine Avenue de la Gare;Gel a abÃ®mÃ© la tuyauterie;;en attente
 2025-11-14;Mme Weber;banc Y-Parc;Un pied est tordu;;en attente
-2023-03-17;email citoyen;panneau affichage près de Rue de la Plaine;Vitrine cassée;;fait
+2023-03-17;email citoyen;panneau affichage prÃ¨s de Rue de la Plaine;Vitrine cassÃ©e;;fait
 2025-03-02;patrouille JM;fontaine Place de la Gare;Ne coule plus;;
-2023-01-15;un habitant;Lampadaire près de Place de la Gare;Ampoule grillée;;
-2024-03-11;email citoyen;poubelle tri Avenue des Bains;Déborde régulièrement;;fait
-03.03.2022;;le poubelle tri devant Parc des Rives;Brûlée;normal;en attente
-2024-07-25;M. Pereira;poubelle Rue du Milieu;Couvercle cassé;;fait
-12.04.2022;concierge école;panneau info près de Passage de l'Hôtel de Ville;Vitrine cassée;;en cours
-2024-09-12;Mme Rochat;corbeille Avenue des Bains;Déborde régulièrement;;en attente
-2023-03-17;;lampadaire led près de Y-Parc;Clignote depuis 1 semaine;normal;en attente
-10.03.2023;concierge école;le lampadaire LED devant Plage d'Yverdon;Ne s'allume plus;urgent;
-2025-05-19;habitant du quartier;le panneau info devant Passage de l'Hôtel de Ville;Penché;;en attente
+2023-01-15;un habitant;Lampadaire prÃ¨s de Place de la Gare;Ampoule grillÃ©e;;
+2024-03-11;email citoyen;poubelle tri Avenue des Bains;DÃ©borde rÃ©guliÃ¨rement;;fait
+03.03.2022;;le poubelle tri devant Parc des Rives;BrÃ»lÃ©e;normal;en attente
+2024-07-25;M. Pereira;poubelle Rue du Milieu;Couvercle cassÃ©;;fait
+12.04.2022;concierge Ã©cole;panneau info prÃ¨s de Passage de l'HÃ´tel de Ville;Vitrine cassÃ©e;;en cours
+2024-09-12;Mme Rochat;corbeille Avenue des Bains;DÃ©borde rÃ©guliÃ¨rement;;en attente
+2023-03-17;;lampadaire led prÃ¨s de Y-Parc;Clignote depuis 1 semaine;normal;en attente
+10.03.2023;concierge Ã©cole;le lampadaire LED devant Plage d'Yverdon;Ne s'allume plus;urgent;
+2025-05-19;habitant du quartier;le panneau info devant Passage de l'HÃ´tel de Ville;PenchÃ©;;en attente
 2025-04-14;;le banc devant Route de Lausanne;Tags / graffitis;;fait
 2024-05-10;email citoyen;le Fontaine devant Place de la Gare;Mousse/algues;;en attente
-2024-01-09;un passant;corbeille près de Rue du Milieu;Déborde régulièrement;;en attente
+2024-01-09;un passant;corbeille prÃ¨s de Rue du Milieu;DÃ©borde rÃ©guliÃ¨rement;;en attente
 2025-11-19;un habitant;lampadaire Avenue de la Gare;Ne s'allume plus;urgent;fait
 2024-11-19;M. Keller;le banc public devant Rue du Casino;Le dossier est fendu;;fait
-2024-01-25;un passant;lampadaire Plage d'Yverdon;Ampoule grillée;;en attente
+2024-01-25;un passant;lampadaire Plage d'Yverdon;Ampoule grillÃ©e;;en attente
 2024-11-22;un passant;Banc Parc des Rives;Tags / graffitis;;fait
 2023-01-12;M. Pereira;le banc devant Rue Haldimand;Le dossier est fendu;;
-2025-12-03;concierge école;Poubelle près de Chemin de Maillefer;Tags;;fait
-2024-03-08;un passant;borne recharge EV près de Avenue de la Gare;Écran cassé;normal;
-2025-02-21;concierge école;lampadaire Plage d'Yverdon;Mât penché après la tempête;urgent;fait
-2025-11-23;email citoyen;lampadaire Passage de l'Hôtel de Ville;Vitre cassée;;fait
-2025-01-07;patrouille JM;panneau info près de Passage de l'Hôtel de Ville;Vitrine cassée;;fait
-2024-07-21;M. Keller;banc public près de Place de la Gare;Vis qui dépassent;;en cours
-11.11.2022;patrouille JM;lampadaire LED Plage d'Yverdon;Vitre cassée;;fait
-2023-12-15;habitant du quartier;banc Rue de la Plaine;Lattes cassées;;
-2024-10-21;Mme Rochat;lampadaire près de Place de la Gare;Éclaire mal;;
+2025-12-03;concierge Ã©cole;Poubelle prÃ¨s de Chemin de Maillefer;Tags;;fait
+2024-03-08;un passant;borne recharge EV prÃ¨s de Avenue de la Gare;Ã‰cran cassÃ©;normal;
+2025-02-21;concierge Ã©cole;lampadaire Plage d'Yverdon;MÃ¢t penchÃ© aprÃ¨s la tempÃªte;urgent;fait
+2025-11-23;email citoyen;lampadaire Passage de l'HÃ´tel de Ville;Vitre cassÃ©e;;fait
+2025-01-07;patrouille JM;panneau info prÃ¨s de Passage de l'HÃ´tel de Ville;Vitrine cassÃ©e;;fait
+2024-07-21;M. Keller;banc public prÃ¨s de Place de la Gare;Vis qui dÃ©passent;;en cours
+11.11.2022;patrouille JM;lampadaire LED Plage d'Yverdon;Vitre cassÃ©e;;fait
+2023-12-15;habitant du quartier;banc Rue de la Plaine;Lattes cassÃ©es;;
+2024-10-21;Mme Rochat;lampadaire prÃ¨s de Place de la Gare;Ã‰claire mal;;
 2024-12-21;patrouille JM;banc Avenue de la Gare;Le dossier est fendu;urgent;en attente
 2023-10-11;un habitant;le banc devant Avenue de la Gare;Tags / graffitis;;fait
-2025-05-14;Mme Weber;banc Rue du Casino;Bois pourri côté gauche;normal;en attente
-09.03.2023;Mme Dupont;le poubelle tri devant Route de Lausanne;Déborde régulièrement;;
-2023-04-15;habitant du quartier;fontaine Place Pestalozzi;Gel a abîmé la tuyauterie;normal;
-2025-07-04;un habitant;le Lampadaire LED devant Rue du Lac;Vitre cassée;;fait
+2025-05-14;Mme Weber;banc Rue du Casino;Bois pourri cÃ´tÃ© gauche;normal;en attente
+09.03.2023;Mme Dupont;le poubelle tri devant Route de Lausanne;DÃ©borde rÃ©guliÃ¨rement;;
+2023-04-15;habitant du quartier;fontaine Place Pestalozzi;Gel a abÃ®mÃ© la tuyauterie;normal;
+2025-07-04;un habitant;le Lampadaire LED devant Rue du Lac;Vitre cassÃ©e;;fait
 22.03.2023;M. Keller;le Fontaine devant Avenue de la Gare;Fuit au sol;urgent;
-2025-12-08;patrouille JM;poubelle Passage de l'Hôtel de Ville;Brûlée;urgent;en cours
+2025-12-08;patrouille JM;poubelle Passage de l'HÃ´tel de Ville;BrÃ»lÃ©e;urgent;en cours
 2024-12-23;un habitant;lampadaire Rue de la Plaine;Clignote depuis 1 semaine;urgent;en attente
 2024-02-13;Mme Rochat;fontaine publique Place Pestalozzi;Mousse/algues;;fait
-2024-12-08;M. Pereira;banc près de Rue Haldimand;Lattes cassées;normal;fait
-2025-04-03;Mme Weber;lampadaire sodium Rue de la Plaine;Vitre cassée;;en attente
-2025-03-08;;lampadaire près de Place de la Gare;Clignote depuis 1 semaine;normal;en cours
-2025-11-26;email citoyen;lampadaire Avenue de la Garre;Ampoule grillée;;
-2023-12-21;habitant du quartier;Lampadaire Place de la Gare;Ampoule grillée;;fait
+2024-12-08;M. Pereira;banc prÃ¨s de Rue Haldimand;Lattes cassÃ©es;normal;fait
+2025-04-03;Mme Weber;lampadaire sodium Rue de la Plaine;Vitre cassÃ©e;;en attente
+2025-03-08;;lampadaire prÃ¨s de Place de la Gare;Clignote depuis 1 semaine;normal;en cours
+2025-11-26;email citoyen;lampadaire Avenue de la Garre;Ampoule grillÃ©e;;
+2023-12-21;habitant du quartier;Lampadaire Place de la Gare;Ampoule grillÃ©e;;fait
 2025-06-15;M. Keller;le poubelle tri devant Y-Parc;Tags;urgent;en cours
-2024-02-23;concierge école;lampadaire sodium Rue de la Plaine;Éclaire mal;urgent;en attente
-2024-10-01;Mme Weber;poubelle Parc des Rives;Déborde régulièrement;;
+2024-02-23;concierge Ã©cole;lampadaire sodium Rue de la Plaine;Ã‰claire mal;urgent;en attente
+2024-10-01;Mme Weber;poubelle Parc des Rives;DÃ©borde rÃ©guliÃ¨rement;;
 2024-03-19;Mme Weber;lampadaire Rue du Lac;Ne s'allume plus;urgent;fait
-2024-04-11;un passant;lampadaire LED près de Centre sportif;Vitre cassée;urgent;fait
-2025-03-06;M. Keller;le Banc devant Avenue de la Gare;Lattes cassées;normal;
-26.04.2023;M. Keller;panneau affichage près de Rue de la Plaine;Affichage décollé;;
-08.09.2022;email citoyen;Lampadaire LED Plage d'Yverdon;Mât penché après la tempête;normal;fait
-2025-04-28;email citoyen;lampadaire sodium Passage de l'Hôtel de Ville;Vitre cassée;normal;fait
-26.03.2023;Mme Rochat;borne recharge EV Avenue de la Gare;Câble manquant;;
-2024-03-10;;poubelle Parc des Rives;Déborde régulièrement;;
+2024-04-11;un passant;lampadaire LED prÃ¨s de Centre sportif;Vitre cassÃ©e;urgent;fait
+2025-03-06;M. Keller;le Banc devant Avenue de la Gare;Lattes cassÃ©es;normal;
+26.04.2023;M. Keller;panneau affichage prÃ¨s de Rue de la Plaine;Affichage dÃ©collÃ©;;
+08.09.2022;email citoyen;Lampadaire LED Plage d'Yverdon;MÃ¢t penchÃ© aprÃ¨s la tempÃªte;normal;fait
+2025-04-28;email citoyen;lampadaire sodium Passage de l'HÃ´tel de Ville;Vitre cassÃ©e;normal;fait
+26.03.2023;Mme Rochat;borne recharge EV Avenue de la Gare;CÃ¢ble manquant;;
+2024-03-10;;poubelle Parc des Rives;DÃ©borde rÃ©guliÃ¨rement;;
 2024-06-03;patrouille JM;le fontaine publique devant Parc des Rives;Fuit au sol;urgent;fait
-2024-05-18;M. Pereira;banc public près de Quai de Nogent;Tags / graffitis;urgent;fait
+2024-05-18;M. Pereira;banc public prÃ¨s de Quai de Nogent;Tags / graffitis;urgent;fait
 2023-10-27;Mme Weber;banc place de la gare;Un pied est tordu;;en attente
-2023-04-03;patrouille JM;banc près de Route de Lausanne;Tags / graffitis;normal;fait
-10.01.2023;patrouille JM;lampadaire Avenue de la Gare;Ampoule grillée;;en attente
-2025-07-22;M. Pereira;lampadaire près de Passage de l'Hôtel de Ville;Mât penché après la tempête;;fait
+2023-04-03;patrouille JM;banc prÃ¨s de Route de Lausanne;Tags / graffitis;normal;fait
+10.01.2023;patrouille JM;lampadaire Avenue de la Gare;Ampoule grillÃ©e;;en attente
+2025-07-22;M. Pereira;lampadaire prÃ¨s de Passage de l'HÃ´tel de Ville;MÃ¢t penchÃ© aprÃ¨s la tempÃªte;;fait
 16.02.2025;un habitant;banc public Place de la Gare;Le dossier est fendu;normal;
-2023-10-05;email citoyen;fontaine Rue de la Plaine;Gel a abîmé la tuyauterie;normal;en attente
-2023-07-11;concierge école;le lampadaire sodium devant Avenue de la Gare;Ne s'allume plus;urgent;
+2023-10-05;email citoyen;fontaine Rue de la Plaine;Gel a abÃ®mÃ© la tuyauterie;normal;en attente
+2023-07-11;concierge Ã©cole;le lampadaire sodium devant Avenue de la Gare;Ne s'allume plus;urgent;
 2024-11-24;email citoyen;banc Rue Haldimand;Tags / graffitis;urgent;fait
 2024-05-16;Mme Rochat;poubelle tri Rue Haldimand;Tags;normal;fait
-06.05.2023;un passant;banc près de Avenue de la Gare;Lattes cassées;;fait
-05.10.2023;Mme Weber;fontaine publique près de Rue du Lac;Fuit au sol;urgent;en attente
+06.05.2023;un passant;banc prÃ¨s de Avenue de la Gare;Lattes cassÃ©es;;fait
+05.10.2023;Mme Weber;fontaine publique prÃ¨s de Rue du Lac;Fuit au sol;urgent;en attente
 2025-11-11;email citoyen;banc Place de la Gare;Tags / graffitis;;en attente
-2025-11-19;patrouille JM;le poubelle tri devant Rue du Casino;Déborde régulièrement;urgent;
+2025-11-19;patrouille JM;le poubelle tri devant Rue du Casino;DÃ©borde rÃ©guliÃ¨rement;urgent;
 2025-02-15;M. Keller;banc public Place de la Gare;Le dossier est fendu;normal;
-26.03.2023;un passant;Lampadaire Avenue de la Gare;Mât penché après la tempête;;
-2025-06-08;;Lampadaire LED Plage d'Yverdon;Ampoule grillée;urgent;fait
-2025-11-03;Mme Rochat;le banc public devant Passage de l'Hôtel de Ville;Tags / graffitis;;
-17.08.2022;;le banc public devant place de la gare;Bois pourri côté gauche;urgent;fait
-2025-11-20;email citoyen;panneau Rue de la Plaine;Penché;urgent;fait
-20.11.2023;patrouille JM;panneau affichage Rue de la Plaine;Vitrine cassée;;en cours
-2024-06-20;patrouille JM;banc place de la gare;Vis qui dépassent;;
+26.03.2023;un passant;Lampadaire Avenue de la Gare;MÃ¢t penchÃ© aprÃ¨s la tempÃªte;;
+2025-06-08;;Lampadaire LED Plage d'Yverdon;Ampoule grillÃ©e;urgent;fait
+2025-11-03;Mme Rochat;le banc public devant Passage de l'HÃ´tel de Ville;Tags / graffitis;;
+17.08.2022;;le banc public devant place de la gare;Bois pourri cÃ´tÃ© gauche;urgent;fait
+2025-11-20;email citoyen;panneau Rue de la Plaine;PenchÃ©;urgent;fait
+20.11.2023;patrouille JM;panneau affichage Rue de la Plaine;Vitrine cassÃ©e;;en cours
+2024-06-20;patrouille JM;banc place de la gare;Vis qui dÃ©passent;;
 2025-10-14;M. Keller;Banc Parc des Rives;Un pied est tordu;normal;
-2025-02-16;Mme Rochat;lampadaire Avenue de la Gare;Mât penché après la tempête;;fait
-05.11.2023;Mme Weber;Poubelle près de Parc des Rives;Tags;;
+2025-02-16;Mme Rochat;lampadaire Avenue de la Gare;MÃ¢t penchÃ© aprÃ¨s la tempÃªte;;fait
+05.11.2023;Mme Weber;Poubelle prÃ¨s de Parc des Rives;Tags;;
 2024-01-24;Mme Rochat;le Poubelle devant Plage d'Yverdon;Tags;;en attente
 2024-09-17;patrouille JM;lampadaire LED Route de Lausanne;Clignote depuis 1 semaine;;fait
-2024-12-10;Mme Rochat;lampadaire sodium Avenue de la Gare;Éclaire mal;;en cours
-05.03.2023;Mme Dupont;le panneau affichage devant Rue de la Plaine;Penché;;en attente
-2023-08-21;concierge école;le Banc devant Avenue de la Garre;Lattes cassées;;en attente
-2024-02-27;un passant;lampadaire sodium près de Avenue de la Gare;Ne s'allume plus;urgent;
+2024-12-10;Mme Rochat;lampadaire sodium Avenue de la Gare;Ã‰claire mal;;en cours
+05.03.2023;Mme Dupont;le panneau affichage devant Rue de la Plaine;PenchÃ©;;en attente
+2023-08-21;concierge Ã©cole;le Banc devant Avenue de la Garre;Lattes cassÃ©es;;en attente
+2024-02-27;un passant;lampadaire sodium prÃ¨s de Avenue de la Gare;Ne s'allume plus;urgent;
 2023-05-13;un passant;lampadaire Avenue de la Gare;Clignote depuis 1 semaine;;en cours
-2024-01-09;habitant du quartier;Lampadaire LED près de Avenue des Bains;Ampoule grillée;urgent;fait
-2024-05-25;;le lampadaire sodium devant Passage de l'Hôtel de Ville;Ne s'allume plus;urgent;en cours
-2024-11-25;Mme Dupont;banc public Y-Parc;Vis qui dépassent;normal;
-2023-11-07;concierge école;banc Avenue de la Gare;Vis qui dépassent;;en attente
-2024-02-19;M. Pereira;Lampadaire LED Plage d'Yverdon;Mât penché après la tempête;urgent;en attente
-05.06.2022;Mme Rochat;borne recharge EV près de Passage de l'Hôtel de Ville;Câble manquant;;en attente
-2025-01-03;;lampadaire led près de Avenue des Bains;Ne s'allume plus;urgent;en attente
-04.03.2022;concierge école;Lampadaire LED Plage d'Yverdon;Clignote depuis 1 semaine;urgent;en attente
+2024-01-09;habitant du quartier;Lampadaire LED prÃ¨s de Avenue des Bains;Ampoule grillÃ©e;urgent;fait
+2024-05-25;;le lampadaire sodium devant Passage de l'HÃ´tel de Ville;Ne s'allume plus;urgent;en cours
+2024-11-25;Mme Dupont;banc public Y-Parc;Vis qui dÃ©passent;normal;
+2023-11-07;concierge Ã©cole;banc Avenue de la Gare;Vis qui dÃ©passent;;en attente
+2024-02-19;M. Pereira;Lampadaire LED Plage d'Yverdon;MÃ¢t penchÃ© aprÃ¨s la tempÃªte;urgent;en attente
+05.06.2022;Mme Rochat;borne recharge EV prÃ¨s de Passage de l'HÃ´tel de Ville;CÃ¢ble manquant;;en attente
+2025-01-03;;lampadaire led prÃ¨s de Avenue des Bains;Ne s'allume plus;urgent;en attente
+04.03.2022;concierge Ã©cole;Lampadaire LED Plage d'Yverdon;Clignote depuis 1 semaine;urgent;en attente
 25.11.2023;M. Keller;lampadaire Route de Lausanne;Clignote depuis 1 semaine;normal;fait
 2025-09-02;patrouille JM;banc Rue du Lac;Le dossier est fendu;;fait
-11.03.2024;;poubelle Parc des Rives;Déborde régulièrement;;
-2024-08-14;M. Pereira;lampadaire Avenue des Bains;Ampoule grillée;;fait
-2023-02-07;concierge école;banc Rue du Lac;Tags / graffitis;;
-2025-12-19;patrouille JM;le lampadaire LED devant Chemin de Maillefer;Mât penché après la tempête;normal;en attente
-01.12.2023;Mme Weber;Borne recharge Rue de la Maison Rouge;Écran cassé;;fait
-2025-12-26;email citoyen;banc Avenue des Sports;Bois pourri côté gauche;;en attente
-2025-03-24;Mme Dupont;Lampadaire près de Avenue de la Gare;Clignote depuis 1 semaine;;en attente
-2023-10-10;Mme Dupont;Panneau place de la Garre;Vitrine cassée;;fait
-02.04.2022;Mme Rochat;borne recharge EV près de Passage de l'Hôtel de Ville;Ne charge plus;;en attente
-2025-08-28;M. Pereira;Lampadaire Place de la Gare;Vitre cassée;;fait
-2024-03-21;patrouille JM;le lampadaire led devant Y-Parc;Vitre cassée;;fait
-2025-11-18;patrouille JM;Banc près de Rue du Casino;Lattes cassées;normal;
-28.11.2023;concierge école;le Banc devant Rue du Lac;Lattes cassées;;en attente
-2023-04-05;concierge école;banc Passage de l'Hôtel de Ville;Lattes cassées;;
+11.03.2024;;poubelle Parc des Rives;DÃ©borde rÃ©guliÃ¨rement;;
+2024-08-14;M. Pereira;lampadaire Avenue des Bains;Ampoule grillÃ©e;;fait
+2023-02-07;concierge Ã©cole;banc Rue du Lac;Tags / graffitis;;
+2025-12-19;patrouille JM;le lampadaire LED devant Chemin de Maillefer;MÃ¢t penchÃ© aprÃ¨s la tempÃªte;normal;en attente
+01.12.2023;Mme Weber;Borne recharge Rue de la Maison Rouge;Ã‰cran cassÃ©;;fait
+2025-12-26;email citoyen;banc Avenue des Sports;Bois pourri cÃ´tÃ© gauche;;en attente
+2025-03-24;Mme Dupont;Lampadaire prÃ¨s de Avenue de la Gare;Clignote depuis 1 semaine;;en attente
+2023-10-10;Mme Dupont;Panneau place de la Garre;Vitrine cassÃ©e;;fait
+02.04.2022;Mme Rochat;borne recharge EV prÃ¨s de Passage de l'HÃ´tel de Ville;Ne charge plus;;en attente
+2025-08-28;M. Pereira;Lampadaire Place de la Gare;Vitre cassÃ©e;;fait
+2024-03-21;patrouille JM;le lampadaire led devant Y-Parc;Vitre cassÃ©e;;fait
+2025-11-18;patrouille JM;Banc prÃ¨s de Rue du Casino;Lattes cassÃ©es;normal;
+28.11.2023;concierge Ã©cole;le Banc devant Rue du Lac;Lattes cassÃ©es;;en attente
+2023-04-05;concierge Ã©cole;banc Passage de l'HÃ´tel de Ville;Lattes cassÃ©es;;
 2025-04-06;;banc HEIG-VD;Un pied est tordu;;
-2025-12-05;Mme Dupont;poubelle tri Y-Parc;Renversée;;fait
-03.11.2022;;Poubelle près de Parc des Rives;Couvercle cassé;;fait
+2025-12-05;Mme Dupont;poubelle tri Y-Parc;RenversÃ©e;;fait
+03.11.2022;;Poubelle prÃ¨s de Parc des Rives;Couvercle cassÃ©;;fait
 2025-09-22;Mme Dupont;fontaine Plage d'Yverdon;Mousse/algues;;en cours
-2025-03-26;habitant du quartier;lampadaire près de Avenue de la Gare;Éclaire mal;;fait
-2024-02-10;;banc Rue de la Plaine;Vis qui dépassent;;fait
-2023-06-08;email citoyen;Fontaine près de Avenue de la Gare;Fuit au sol;urgent;en attente
+2025-03-26;habitant du quartier;lampadaire prÃ¨s de Avenue de la Gare;Ã‰claire mal;;fait
+2024-02-10;;banc Rue de la Plaine;Vis qui dÃ©passent;;fait
+2023-06-08;email citoyen;Fontaine prÃ¨s de Avenue de la Gare;Fuit au sol;urgent;en attente
 2023-03-24;M. Pereira;banc Rue de la Plaine;Tags / graffitis;normal;fait
-2025-01-25;M. Pereira;le borne recharge EV devant Avenue de la Gare;Écran cassé;;
-2025-03-12;concierge école;poubelle Passage de l'Hôtel de Ville;Tags;urgent;
-2023-03-03;habitant du quartier;banc place de la gare;Lattes cassées;;fait
-2024-06-26;M. Pereira;Lampadaire près de Avenue de la Gare;Mât penché après la tempête;;en attente
-2024-04-28;habitant du quartier;Lampadaire LED Plage d'Yverdon;Vitre cassée;;
+2025-01-25;M. Pereira;le borne recharge EV devant Avenue de la Gare;Ã‰cran cassÃ©;;
+2025-03-12;concierge Ã©cole;poubelle Passage de l'HÃ´tel de Ville;Tags;urgent;
+2023-03-03;habitant du quartier;banc place de la gare;Lattes cassÃ©es;;fait
+2024-06-26;M. Pereira;Lampadaire prÃ¨s de Avenue de la Gare;MÃ¢t penchÃ© aprÃ¨s la tempÃªte;;en attente
+2024-04-28;habitant du quartier;Lampadaire LED Plage d'Yverdon;Vitre cassÃ©e;;
 2024-03-10;habitant du quartier;poubelle Parc des Rives;Tags;;fait
-2025-09-19;un habitant;panneau affichage près de Rue de la Plaine;Vitrine cassée;;en cours
-08.09.2023;un habitant;fontaine Rue du Casino;Vasque fissurée;;
-2024-11-11;email citoyen;banc public place de la gare;Bois pourri côté gauche;;
+2025-09-19;un habitant;panneau affichage prÃ¨s de Rue de la Plaine;Vitrine cassÃ©e;;en cours
+08.09.2023;un habitant;fontaine Rue du Casino;Vasque fissurÃ©e;;
+2024-11-11;email citoyen;banc public place de la gare;Bois pourri cÃ´tÃ© gauche;;
 2024-01-27;un habitant;lampadaire Rue du Lac;Ne s'allume plus;urgent;en attente
-11.10.2022;Mme Dupont;poubelle tri Y-Parc;Couvercle cassé;;fait
-21.12.2023;patrouille JM;le Poubelle devant Parc des Rives;Déborde régulièrement;;fait
+11.10.2022;Mme Dupont;poubelle tri Y-Parc;Couvercle cassÃ©;;fait
+21.12.2023;patrouille JM;le Poubelle devant Parc des Rives;DÃ©borde rÃ©guliÃ¨rement;;fait
 04.11.2022;Mme Weber;poubelle HEIG-VD;Tags;;en attente
-14.11.2023;Mme Rochat;poubelle près de Parc des Rives;Couvercle cassé;;fait
-2025-06-27;un habitant;le Lampadaire LED devant Plage d'Yverdon;Ampoule grillée;normal;
+14.11.2023;Mme Rochat;poubelle prÃ¨s de Parc des Rives;Couvercle cassÃ©;;fait
+2025-06-27;un habitant;le Lampadaire LED devant Plage d'Yverdon;Ampoule grillÃ©e;normal;
 2025-05-24;email citoyen;banc Rue de la Plaine;Tags / graffitis;;
-2023-04-11;Mme Rochat;banc Route de Lausanne;Vis qui dépassent;;fait
-2025-03-24;M. Keller;le corbeille devant Rue du Casino;Couvercle cassé;;en attente
+2023-04-11;Mme Rochat;banc Route de Lausanne;Vis qui dÃ©passent;;fait
+2025-03-24;M. Keller;le corbeille devant Rue du Casino;Couvercle cassÃ©;;en attente
 2025-12-09;M. Keller;banc Avenue de la Gare;Tags / graffitis;;en attente
-2024-01-03;un habitant;banc public près de Rue du Milieu;Bois pourri côté gauche;normal;en attente
-2025-03-10;Mme Rochat;lampadaire Passage de l'Hôtel de Ville;Clignote depuis 1 semaine;;en attente
-2025-04-24;M. Pereira;Banc Avenue de la Garre;Lattes cassées;urgent;en cours
+2024-01-03;un habitant;banc public prÃ¨s de Rue du Milieu;Bois pourri cÃ´tÃ© gauche;normal;en attente
+2025-03-10;Mme Rochat;lampadaire Passage de l'HÃ´tel de Ville;Clignote depuis 1 semaine;;en attente
+2025-04-24;M. Pereira;Banc Avenue de la Garre;Lattes cassÃ©es;urgent;en cours
 2024-11-25;M. Keller;le banc devant Place de la Gare;Le dossier est fendu;urgent;fait
-2025-03-09;M. Pereira;panneau info près de Passage de l'Hôtel de Ville;Penché;;
+2025-03-09;M. Pereira;panneau info prÃ¨s de Passage de l'HÃ´tel de Ville;PenchÃ©;;
 2024-12-19;;fontaine Rue de la Plaine;Ne coule plus;urgent;en attente
-2024-12-12;habitant du quartier;borne recharge EV près de Avenue de la Garre;Écran cassé;;
-2025-08-23;email citoyen;Poubelle près de Plage d'Yverdon;Déborde régulièrement;;en cours
-2024-06-18;;Lampadaire près de Avenue de la Gare;Ne s'allume plus;urgent;fait
-28.06.2025;Mme Weber;le Lampadaire LED devant Plage d'Yverdon;Ampoule grillée;normal;
+2024-12-12;habitant du quartier;borne recharge EV prÃ¨s de Avenue de la Garre;Ã‰cran cassÃ©;;
+2025-08-23;email citoyen;Poubelle prÃ¨s de Plage d'Yverdon;DÃ©borde rÃ©guliÃ¨rement;;en cours
+2024-06-18;;Lampadaire prÃ¨s de Avenue de la Gare;Ne s'allume plus;urgent;fait
+28.06.2025;Mme Weber;le Lampadaire LED devant Plage d'Yverdon;Ampoule grillÃ©e;normal;
 10.07.2023;patrouille JM;le banc devant Avenue de la Gare;Un pied est tordu;;en attente
-2024-06-09;un habitant;lampadaire LED près de Chemin de Maillefer;Ampoule grillée;;fait
+2024-06-09;un habitant;lampadaire LED prÃ¨s de Chemin de Maillefer;Ampoule grillÃ©e;;fait
