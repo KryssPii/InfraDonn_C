@@ -19,9 +19,9 @@ CREATE TABLE staging.signalements (
     date TEXT, objet TEXT, description TEXT
 );
 CREATE TABLE staging.fournisseurs_contacts (
-    id TEXT, type TEXT, materiau TEXT, lieu TEXT,
-    latitude TEXT, longitude TEXT,
-    date_installation TEXT, etat TEXT, remarques TEXT
+    id TEXT, type TEXT, entreprise TEXT, contact TEXT,
+    telephone TEXT, email TEXT,
+    type_materiel TEXT, remarques TEXT
 );
 -- ... (signalements, interventions, fournisseurs)
 
