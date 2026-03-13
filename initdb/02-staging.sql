@@ -28,17 +28,17 @@ CREATE TABLE staging.fournisseurs_contacts (
 -- Import CSV — data/ est monté sous /data/ dans le conteneur
 COPY staging.inventaire_mobilier
 FROM '/data/inventaire_mobilier.csv'
-WITH (FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
+WITH (FORMAT csv, HEADER true, DELIMITER ';', ENCODING 'UTF8');
 
 -- ... (répéter pour les 3 autres fichiers)
 COPY staging.interventions
-FROM '/data/interventions'
-WITH (FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
+FROM '/data/interventions.csv'
+WITH (FORMAT csv, HEADER true, DELIMITER ';', ENCODING 'UTF8');
 
 COPY staging.signalements
 FROM '/data/signalements.csv'
-WITH (FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
+WITH (FORMAT csv, HEADER true, DELIMITER ';', ENCODING 'UTF8');
 
 COPY staging.fournisseurs_contacts
 FROM '/data/fournisseurs_contacts.csv'
-WITH (FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
+WITH (FORMAT csv, HEADER true, DELIMITER ';', ENCODING 'UTF8');
