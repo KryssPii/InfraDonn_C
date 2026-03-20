@@ -18,5 +18,16 @@ SELECT
         WHEN 'panneau info' THEN 'panneau'
         WHEN 'panneau affichage' THEN 'panneau'
         ELSE NULL
+    END,
+    
+  CASE LOWER(TRIM(etat))
+    WHEN 'bon' THEN 'bon'
+    WHEN 'usé' THEN 'usé'
+    WHEN 'à remplacer' THEN 'usé'
+    ELSE NULL
     END
-FROM inventaire_mobiliers
+FROM inventaire_mobilier
+
+
+
+
