@@ -1,4 +1,6 @@
 SELECT
+ ROUND(REPLACE(latitude, ',', '.')::NUMERIC, 4),
+ ROUND(REPLACE(longitude, ',', '.')::NUMERIC, 4),
     CASE LOWER(TRIM(type))
         WHEN 'banc' THEN 'banc'
         WHEN 'banc public' THEN 'banc'
@@ -10,7 +12,7 @@ SELECT
         WHEN 'corbeille' THEN 'poubelle'
         WHEN 'lampadaire sodium' THEN 'lampadaire'
         WHEN 'fontaine' THEN 'fontaine'
-        WHEN 'fontaine publique'  THEN 'fontaine'
+        WHEN 'fontaine publique' THEN 'fontaine'
         WHEN 'borne EV' THEN 'borne'
         WHEN 'Borne recharge' THEN 'borne'
         WHEN 'borne recharge EV' THEN 'borne'
@@ -19,15 +21,10 @@ SELECT
         WHEN 'panneau affichage' THEN 'panneau'
         ELSE NULL
     END,
-    
-  CASE LOWER(TRIM(etat))
-    WHEN 'bon' THEN 'bon'
-    WHEN 'usé' THEN 'usé'
-    WHEN 'à remplacer' THEN 'usé'
-    ELSE NULL
+    CASE LOWER(TRIM(etat))
+        WHEN 'bon' THEN 'bon'
+        WHEN 'usé' THEN 'usé'
+        WHEN 'à remplacer' THEN 'usé'
+        ELSE NULL
     END
-FROM inventaire_mobilier
-
-
-
-
+FROM inventaire_mobilier;
