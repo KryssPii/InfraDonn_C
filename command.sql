@@ -1,4 +1,6 @@
 SELECT
+ ROUND(REPLACE(latitude, ',', '.')::NUMERIC, 4),
+ ROUND(REPLACE(longitude, ',', '.')::NUMERIC, 4),
     CASE LOWER(TRIM(type))
         WHEN 'banc' THEN 'banc'
         WHEN 'banc public' THEN 'banc'
