@@ -40,6 +40,15 @@ WHEN 'Jean-Marc' THEN 'Jean-Marc Bonvin'
 WHEN 'JM' THEN 'Jean-Marc Bonvin'
 WHEN 'stagiaire' THEN 'stagiaire'
 ELSE NULL
-END
+END,
 
-FROM interventions
+-- Supprimer tout sauf les chiffres, puis caster
+SELECT COALESCE(REGEXP_REPLACE(cout_materiel, '[^0-9]+', '', 'g'), '0'),
+CASE (TRIM(cout_materiel))
+WHEN 'NULL' THEN '0'
+END
+FROM staging.interventions
+
+
+
+select cout_materiel from interventions;
