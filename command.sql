@@ -1,3 +1,4 @@
+--Tableau Inventaire mobilier 
 SELECT
     ROUND(
         REPLACE(latitude, ',', '.')::NUMERIC,
@@ -47,6 +48,7 @@ SELECT
     END
 FROM inventaire_mobilier
 
+--Tableau Interventions 
 SELECT
     CASE (TRIM(technicien))
         WHEN 'Alves Pedro' THEN 'Alves Pedro'
@@ -58,9 +60,13 @@ SELECT
         WHEN 'stagiaire' THEN 'stagiaire'
         ELSE NULL
     END,
-
--- Supprimer tout sauf les chiffres, puis caster
-SELECT
+    --Modification format dates 
+    CASE
+        WHEN date LIKE '%.%.%' THEN TO_DATE(date, 'DD.MM.YYYY')
+        WHEN date LIKE '%/%/%' THEN TO_DATE(date, 'DD.MM.YYYY')
+        ELSE NULL
+    END,
+    -- Supprimer tout sauf les chiffres, puis caster
     COALESCE(
         REGEXP_REPLACE(
             cout_materiel,
@@ -74,5 +80,3 @@ SELECT
         WHEN 'NULL' THEN '0'
     END
 FROM staging.interventions
-
-select cout_materiel from interventions;
