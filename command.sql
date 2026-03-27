@@ -80,3 +80,17 @@ SELECT
         WHEN 'NULL' THEN '0'
     END
 FROM staging.interventions
+--Tableau des signalements 
+SELECT 
+    CASE LOWER(TRIM(signale_par))
+        WHEN '%email%' THEN 'email'
+        WHEN '%concierge%' THEN 'concierge'
+        WHEN '%habitant%' THEN 'habitant'
+        WHEN '%passant%' THEN 'passant'
+        WHEN '%partrouille%' THEN 'patrouille'
+        WHEN '%Weber%' THEN 'Weber'
+        WHEN '%Rochat%' THEN 'Rochat'
+        WHEN '%Pereira%' THEN 'Pereira'
+        WHEN '%Dupont%' THEN 'Dupont'
+        
+FROM staging.signalements
