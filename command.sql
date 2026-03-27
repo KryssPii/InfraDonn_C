@@ -73,3 +73,29 @@ WHEN (TRIM(type_intervention)) LIKE '%détartrage%' THEN 'detartrage'
 ELSE NULL
 END
 FROM staging.interventions
+
+SELECT CASE
+WHEN LOWER(TRIM(telephone)) LIKE '+41%' THEN REPLACE(telephone, '+41 ', '0')
+ELSE telephone
+END
+FROM fournisseurs_contacts
+
+SELECT CASE 
+WHEN (TRIM(email)) LIKE '%@%' THEN (TRIM(email))
+ELSE NULL
+END
+FROM fournisseurs_contacts
+
+
+INSERT INTO mobilier (type)
+SELECT DISTINCT CASE 
+WHEN(TRIM(type_materiel)) LIKE '%banc%' THEN 'banc'
+WHEN(TRIM(type_materiel)) LIKE '%lampadaire%' THEN 'lampadaire'
+WHEN(TRIM(type_materiel)) LIKE '%poubelle%' THEN 'poubelle'
+WHEN(TRIM(type_materiel)) LIKE '%fontaine%' THEN 'fontaine'
+WHEN(TRIM(type_materiel)) LIKE '%borne%' THEN 'borne'
+WHEN(TRIM(type_materiel)) LIKE '%panneau%' THEN 'panneau'
+ELSE NULL
+END
+FROM fournisseurs
+WHERE type_materiel IS NOT NULL;
