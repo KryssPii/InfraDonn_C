@@ -51,4 +51,25 @@ FROM staging.interventions
 
 
 
-select cout_materiel from interventions;
+
+SELECT CASE 
+WHEN (TRIM(duree)) LIKE '%h%' THEN REPLACE (duree, 'h', '')::NUMERIC * 60
+WHEN  (TRIM(duree)) LIKE '%min%' THEN REPLACE (duree, 'min', '')::NUMERIC
+ELSE NULL
+END
+FROM staging.interventions
+
+SELECT CASE 
+WHEN (TRIM(type_intervention)) LIKE '%remplacement%' THEN 'remplacement'
+WHEN (TRIM(type_intervention)) LIKE '%réparation%' THEN 'reparation'
+WHEN (TRIM(type_intervention)) LIKE '%Réparation%' THEN 'reparation'
+WHEN (TRIM(type_intervention)) LIKE '%nettoyage%' THEN 'nettoyage'
+WHEN (TRIM(type_intervention)) LIKE '%peinture%' THEN 'peinture'
+WHEN (TRIM(type_intervention)) LIKE '%remise en service%' THEN 'remise en service'
+WHEN (TRIM(type_intervention)) LIKE '%hivernage%' THEN 'hivernage'
+WHEN (TRIM(type_intervention)) LIKE '%redressage%' THEN 'redressage'
+WHEN (TRIM(type_intervention)) LIKE '%mise à jour%' THEN 'mise à jour'
+WHEN (TRIM(type_intervention)) LIKE '%détartrage%' THEN 'detartrage'
+ELSE NULL
+END
+FROM staging.interventions
