@@ -1,6 +1,12 @@
 SELECT
- ROUND(REPLACE(latitude, ',', '.')::NUMERIC, 4),
- ROUND(REPLACE(longitude, ',', '.')::NUMERIC, 4),
+    ROUND(
+        REPLACE(latitude, ',', '.')::NUMERIC,
+        4
+    ),
+    ROUND(
+        REPLACE(longitude, ',', '.')::NUMERIC,
+        4
+    ),
     CASE LOWER(TRIM(type))
         WHEN 'banc' THEN 'banc'
         WHEN 'banc public' THEN 'banc'
@@ -21,34 +27,52 @@ SELECT
         WHEN 'panneau affichage' THEN 'panneau'
         ELSE NULL
     END,
+    CASE
+        WHEN date_installation LIKE '%.%.%' THEN TO_DATE(
+            date_installation,
+            'DD.MM.YYYY'
+        )
+        WHEN date_installation LIKE '____-__-__' THEN TO_DATE(
+            date_installation,
+            'YYYY-MM-DD'
+        )
+        ELSE NULL
+    END,
     CASE LOWER(TRIM(etat))
-        WHEN 'bon' THEN 'bon'
-        WHEN 'usé' THEN 'usé'
         WHEN 'à remplacer' THEN 'usé'
+        WHEN 'use' THEN 'usé'
+        WHEN 'usé' THEN 'usé'
+        WHEN 'bon' THEN 'bon'
         ELSE NULL
     END
 FROM inventaire_mobilier
 
-
-SELECT 
-CASE(TRIM(technicien))
-WHEN 'Alves Pedro' THEN 'Alves Pedro'
-WHEN 'Pedro' THEN 'Alves Pedro'
-WHEN 'P. Alves' THEN 'Alves Pedro'
-WHEN 'Jean-Marc Bonvin' THEN 'Jean-Marc Bonvin'
-WHEN 'Jean-Marc' THEN 'Jean-Marc Bonvin'
-WHEN 'JM' THEN 'Jean-Marc Bonvin'
-WHEN 'stagiaire' THEN 'stagiaire'
-ELSE NULL
-END,
+SELECT
+    CASE (TRIM(technicien))
+        WHEN 'Alves Pedro' THEN 'Alves Pedro'
+        WHEN 'Pedro' THEN 'Alves Pedro'
+        WHEN 'P. Alves' THEN 'Alves Pedro'
+        WHEN 'Jean-Marc Bonvin' THEN 'Jean-Marc Bonvin'
+        WHEN 'Jean-Marc' THEN 'Jean-Marc Bonvin'
+        WHEN 'JM' THEN 'Jean-Marc Bonvin'
+        WHEN 'stagiaire' THEN 'stagiaire'
+        ELSE NULL
+    END,
 
 -- Supprimer tout sauf les chiffres, puis caster
-SELECT COALESCE(REGEXP_REPLACE(cout_materiel, '[^0-9]+', '', 'g'), '0'),
-CASE (TRIM(cout_materiel))
-WHEN 'NULL' THEN '0'
-END
+SELECT
+    COALESCE(
+        REGEXP_REPLACE(
+            cout_materiel,
+            '[^0-9]+',
+            '',
+            'g'
+        ),
+        '0'
+    ),
+    CASE (TRIM(cout_materiel))
+        WHEN 'NULL' THEN '0'
+    END
 FROM staging.interventions
-
-
 
 select cout_materiel from interventions;
