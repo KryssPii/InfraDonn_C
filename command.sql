@@ -76,7 +76,6 @@ INSERT INTO Lieu (Nom, Latitude, Longitude) VALUES
 ON CONFLICT (Nom) DO NOTHING;
 
 --Tableau Interventions 
-INSERT INTO interv
 SELECT
     CASE (TRIM(technicien))
         WHEN 'Alves Pedro' THEN 'Alves Pedro'
@@ -153,6 +152,12 @@ SELECT
     END
 FROM inventaire_mobilier
 
+--Mettre les techniiens dans le tableau 
+INSERT INTO Technicien (nom, prenom) VALUES
+('Bonvin',  'Jean-Marc'),  
+('Alves',   'Pedro'),     
+('Koffi',   'Marc'),       
+('Stagiaire', '');         
 
 SELECT 
 CASE(TRIM(technicien))
