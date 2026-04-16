@@ -1,7 +1,10 @@
 SELECT
  ROUND(REPLACE(latitude, ',', '.')::NUMERIC, 4),
  ROUND(REPLACE(longitude, ',', '.')::NUMERIC, 4),
-    CASE LOWER(TRIM(type))
+ END
+ FROM inventaire.mobilier
+ 
+    SELECT CASE LOWER(TRIM(type))
         WHEN 'banc' THEN 'banc'
         WHEN 'banc public' THEN 'banc'
         WHEN 'lampadaire' THEN 'lampadaire'
@@ -21,6 +24,16 @@ SELECT
         WHEN 'panneau affichage' THEN 'panneau'
         ELSE NULL
     END,
+
+    CASE LOWER(TRIM(materiau))
+    WHEN 'bois' THEN 'bois'
+    WHEN 'métal' THEN 'métal'
+    WHEN 'Métal' THEN 'métal'
+    WHEN 'metal' THEN 'métal'
+    WHEN 'sodium' THEN 'sodium'
+    WHEN 'LED' THEN 'LED'
+    END,
+
     CASE LOWER(TRIM(etat))
         WHEN 'bon' THEN 'bon'
         WHEN 'usé' THEN 'usé'
@@ -96,6 +109,6 @@ WHEN(TRIM(type_materiel)) LIKE '%fontaine%' THEN 'fontaine'
 WHEN(TRIM(type_materiel)) LIKE '%borne%' THEN 'borne'
 WHEN(TRIM(type_materiel)) LIKE '%panneau%' THEN 'panneau'
 ELSE NULL
-END
-FROM fournisseurs
-WHERE type_materiel IS NOT NULL;
+END, 
+FROM fournisseurs_contacts
+WHERE type_materiel IS NOT NULL; 
