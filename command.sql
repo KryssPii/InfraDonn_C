@@ -47,8 +47,36 @@ SELECT
         ELSE NULL
     END
 FROM inventaire_mobilier
+--Tableau des lieu 
+
+ALTER TABLE Lieu ADD CONSTRAINT unique_nom UNIQUE (Nom);
+INSERT INTO Lieu (Nom, Latitude, Longitude) VALUES
+('Avenue de la Gare',   46.78047778, 6.641623979),
+('Rue du Lac',          46.77932212, 6.637371232),
+('Rue du Casino',       46.77885475, 6.639355991),
+('HEIG-VD',             46.78,       6.66),
+('Place de la Gare',    46.78106843, 6.64157228),
+('Place Pestalozzi',    46.77850749, 6.640148663),
+('Rue du Milieu',       46.77893365, 6.639979194),
+('Y-Parc',              46.76481563, 6.628153421),
+('Chemin de Maillefer', 46.78101226, 6.655518258),
+('Rue Haldimand',       46.78,       6.65),
+('Rue de la Maison Rouge', 46.78,    6.64),
+('Route de Lausanne',   46.76574288, 6.641578676),
+('Centre sportif',      46.76747554, 6.637246191),
+('Quai de Nogent',      46.78490298, 6.635316069),
+('Parc des Rives',      46.78,       6.64),
+('Avenue des Bains',    46.78308929, 6.635762336),
+('Plage d''Yverdon',    46.78470569, 6.63408617),
+('Avenue des Sports',   46.77877368, 6.651261212),
+('Rue de la Plaine',    46.77985343, 6.642843841),
+('Rue des Pêcheurs',    46.76845721, 6.635170659),
+('Passage de l''Hôtel de Ville', 46.78085084, 6.640507645),
+('Rue de la Maison Rouge', 46.77841271, 6.640736301)
+ON CONFLICT (Nom) DO NOTHING;
 
 --Tableau Interventions 
+INSERT INTO interv
 SELECT
     CASE (TRIM(technicien))
         WHEN 'Alves Pedro' THEN 'Alves Pedro'
