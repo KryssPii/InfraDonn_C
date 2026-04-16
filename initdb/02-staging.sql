@@ -24,6 +24,9 @@ CREATE TABLE staging.interventions (
     cout_materiel TEXT,
     remarques TEXT
 );
+ALTER TABLE staging.interventions ADD technicien TEXT;
+ALTER TABLE interventions DROP COLUMN technicien;
+
 
 CREATE TABLE staging.signalements (
     date TEXT,
