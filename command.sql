@@ -162,22 +162,34 @@ VALUES (
 ON CONFLICT (Nom) DO NOTHING;
 
 --Tableau Interventions
+
 INSERT INTO
-    interventions (,
+    public.interventions (
         date,
         objet,
         type_intervention,
         duree,
         cout_materiel
     )
-SELECT
+    SELECT
     --Modification format dates 
     CASE
         WHEN date LIKE '%.%.%' THEN TO_DATE(date, 'DD.MM.YYYY')
         WHEN date LIKE '%/%/%' THEN TO_DATE(date, 'DD.MM.YYYY')
+        WHEN date IS NULL THEN TO_DATE('01.01.1970', 'DD.MM.YYYY')
+        WHEN date LIKE '____-__-__' THEN TO_DATE(date, 'YYYY-MM-DD')
         ELSE NULL
     END,
 
+    CASE
+        WHEN  LOWER(TRIM(objet)) LIKE '%banc%' THEN 'banc'
+        WHEN LOWER(TRIM(objet)) LIKE '%lampadaire%' THEN 'lampadaire'
+        WHEN  LOWER(TRIM(objet)) LIKE '%poubelle%' THEN 'poubelle'
+        WHEN LOWER(TRIM(objet)) LIKE '%fontaine%' THEN 'fontaine'
+        WHEN  LOWER(TRIM(objet)) LIKE '%borne%' THEN 'borne'
+        WHEN  LOWER(TRIM(objet)) LIKE '%panneau%' THEN 'panneau'
+        ELSE NULL
+        END,
 CASE
         WHEN (TRIM(type_intervention)) LIKE '%remplacement%' THEN 'remplacement'
         WHEN (TRIM(type_intervention)) LIKE '%réparation%' THEN 'reparation'
@@ -191,26 +203,32 @@ CASE
         WHEN (TRIM(type_intervention)) LIKE '%détartrage%' THEN 'detartrage'
         ELSE NULL
     END,
-
       CASE
         WHEN (TRIM(duree)) LIKE '%h%' THEN REPLACE(duree, 'h', '')::NUMERIC * 60
         WHEN (TRIM(duree)) LIKE '%min%' THEN REPLACE(duree, 'min', '')::NUMERIC
+        WHEN(TRIM(duree)) LIKE '%matinée%' THEN 240
+        WHEN(TRIM(duree)) LIKE '%journée%' THEN 480
         ELSE NULL
     END,
-    -- Supprimer tout sauf les chiffres, puis caster
-    COALESCE(
+    (CASE 
+        WHEN cout_materiel LIKE 'garantie' THEN  '0'
+        WHEN cout_materiel LIKE 'gratuit' THEN '0'
+        ELSE    COALESCE(
         REGEXP_REPLACE(
-            cout_materiel,
+            NULLIF(cout_materiel,''),
             '[^0-9]+',
             '',
             'g'
         ),
         '0'
-    ),
-    CASE (TRIM(cout_materiel))
-        WHEN 'NULL' THEN '0'
-    END
-FROM staging.interventions
+        )
+    END)::NUMERIC -- Supprimer tout sauf les chiffres, puis caster
+FROM staging.interventions;
+
+
+
+
+
 
     --Tableau des signalements 
 INSERT INTO
@@ -229,9 +247,7 @@ SELECT
     END
 FROM staging.signalements
 
-
-SELECT
-    CASE (TRIM(technicien))
+ CASE (TRIM(technicien))
         WHEN 'Alves Pedro' THEN 'Alves Pedro'
         WHEN 'Pedro' THEN 'Alves Pedro'
         WHEN 'P. Alves' THEN 'Alves Pedro'
@@ -241,7 +257,6 @@ SELECT
         WHEN 'stagiaire' THEN 'stagiaire'
         ELSE NULL
     END
-FROM staging.interventions
 -- Supprimer tout sauf les chiffres, puis caster
 
 
