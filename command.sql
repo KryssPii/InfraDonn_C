@@ -257,6 +257,7 @@ SELECT
         ELSE NULL
     END,
 
+--Tableau interventions
 -- Supprimer tout sauf les chiffres, puis caster
 SELECT
     COALESCE(
@@ -272,7 +273,7 @@ SELECT
         WHEN 'NULL' THEN '0'
     END
 FROM staging.interventions
-
+    --durée intervention
 SELECT
     CASE
         WHEN (TRIM(duree)) LIKE '%h%' THEN REPLACE(duree, 'h', '')::NUMERIC * 60
@@ -280,7 +281,7 @@ SELECT
         ELSE NULL
     END
 FROM staging.interventions
-
+    --Type d'intervention 
 SELECT
     CASE
         WHEN (TRIM(type_intervention)) LIKE '%remplacement%' THEN 'remplacement'
@@ -297,20 +298,22 @@ SELECT
     END
 FROM staging.interventions
 
+--Tableau fournisseurs
+--Telephone fourniseurs
 SELECT
     CASE
         WHEN LOWER(TRIM(telephone)) LIKE '+41%' THEN REPLACE(telephone, '+41 ', '0')
         ELSE telephone
     END
 FROM fournisseurs_contacts
-
+    --Mail fournisseurs 
 SELECT
     CASE
         WHEN (TRIM(email)) LIKE '%@%' THEN (TRIM(email))
         ELSE NULL
     END
 FROM fournisseurs_contacts
-
+    --Mobilier dans fourniseurs 
 INSERT INTO
     mobilier (type)
 SELECT DISTINCT
