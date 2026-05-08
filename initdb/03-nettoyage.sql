@@ -1,3 +1,4 @@
+TRUNCATE TABLE fournisseurs RESTART IDENTITY CASCADE;
 -- ============================================================
 -- 1. TABLE : technicien
 -- ============================================================
@@ -124,9 +125,6 @@ ON CONFLICT (nom) DO NOTHING;
 -- ============================================================
 -- 3. TABLE : inventaire_mobilier
 -- ============================================================
--- FIX : les deux CASE (type et date_installation) étaient fusionnés
---       en un seul bloc malformé dans l'original.
-
 INSERT INTO
     inventaire_mobilier (
         latitude,
@@ -324,17 +322,28 @@ ON CONFLICT DO NOTHING;
 -- ============================================================
 -- 7. TABLE : fournisseurs_contacts
 -- ============================================================
--- FIX : deux WHEN identiques (+41%) dans l'original — un seul suffit
-
 INSERT INTO
-    fournisseurs_contacts (telephone, email)
+    fournisseurs (
+        nom_entreprise,
+        contact,
+        telephone,
+        email,
+        type_materiel,
+        remarque
+    )
 SELECT
+    NULLIF(TRIM(entreprise), '') AS nom_entreprise,
+    NULLIF(TRIM(contact), '') AS contact,
     CASE
         WHEN TRIM(telephone) LIKE '+41%' THEN REGEXP_REPLACE(telephone, '^\+41\s*', '0')
-        ELSE TRIM(telephone)
-    END,
+        ELSE NULLIF(TRIM(telephone), '')
+    END AS telephone,
     CASE
         WHEN TRIM(email) LIKE '%@%' THEN TRIM(email)
-        ELSE NULL
-    END
-FROM staging.fournisseurs_contacts;
+        ELSE 'inconnue'
+    END AS email,
+    NULLIF(TRIM(type_materiel), '') AS type_materiel,
+    NULLIF(TRIM(remarques), '') AS remarque
+FROM staging.fournisseurs_contacts
+WHERE
+    NULLIF(TRIM(entreprise), '') IS NOT NULL;
