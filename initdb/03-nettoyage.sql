@@ -1,4 +1,4 @@
-TRUNCATE TABLE fournisseurs RESTART IDENTITY CASCADE;
+TRUNCATE TABLE mobilier RESTART IDENTITY CASCADE;
 -- ============================================================
 -- 1. TABLE : technicien
 -- ============================================================
@@ -126,23 +126,18 @@ ON CONFLICT (nom) DO NOTHING;
 -- 3. TABLE : inventaire_mobilier
 -- ============================================================
 INSERT INTO
-    inventaire_mobilier (
-        latitude,
-        longitude,
+    Mobilier (
         type,
+        materiau,
         etat,
-        date_installation
+        date_installation,
+        remarque,
+        fk_id_lieu,
+        fk_id_intervention
     )
 SELECT
-    ROUND(
-        REPLACE(latitude, ',', '.')::NUMERIC,
-        4
-    ),
-    ROUND(
-        REPLACE(longitude, ',', '.')::NUMERIC,
-        4
-    ),
-    CASE LOWER(TRIM(type))
+    -- Normalisation du type
+    CASE LOWER(TRIM(s.type))
         WHEN 'banc' THEN 'banc'
         WHEN 'banc public' THEN 'banc'
         WHEN 'lampadaire' THEN 'lampadaire'
@@ -162,26 +157,45 @@ SELECT
         WHEN 'panneau info' THEN 'panneau'
         WHEN 'panneau affichage' THEN 'panneau'
         ELSE NULL
-    END,
-    CASE LOWER(TRIM(etat))
+    END AS type,
+    -- Materiau (on garde tel quel mais on le nettoie et unifie un peu)
+    CASE LOWER(TRIM(s.materiau))
+        WHEN 'bois' THEN 'bois'
+        WHEN 'métal' THEN 'metal'
+        WHEN 'metal' THEN 'metal'
+        ELSE NULLIF(LOWER(TRIM(s.materiau)), '')
+    END AS materiau,
+    -- Etat normalisé
+    CASE LOWER(TRIM(s.etat))
         WHEN 'bon' THEN 'bon'
         WHEN 'usé' THEN 'usé'
         WHEN 'use' THEN 'usé'
         WHEN 'à remplacer' THEN 'usé'
-        ELSE NULL
-    END,
+        ELSE 'inconnu'
+    END AS etat,
+    -- Date d'installation : on ne traite que les formats sûrs
     CASE
-        WHEN date_installation LIKE '%.%.%' THEN TO_DATE(
-            date_installation,
+        WHEN s.date_installation LIKE '%.%.%' THEN TO_DATE(
+            s.date_installation,
             'DD.MM.YYYY'
         )
-        WHEN date_installation LIKE '____-__-__' THEN TO_DATE(
-            date_installation,
+        WHEN s.date_installation LIKE '____-__-__' THEN TO_DATE(
+            s.date_installation,
             'YYYY-MM-DD'
         )
         ELSE NULL
-    END
-FROM staging.inventaire_mobilier;
+    END AS date_installation,
+    -- Remarque
+    COALESCE(
+        NULLIF(TRIM(s.remarques), ''),
+        'inconnu'
+    ) AS remarque,
+    -- fk_id_lieu via le nom du lieu
+    l.id_lieu AS fk_id_lieu,
+    -- Pour l’instant, pas de lien direct avec une intervention précise
+    NULL AS fk_id_intervention
+FROM staging.inventaire_mobilier s
+    LEFT JOIN Lieu l ON TRIM(s.lieu) = l.Nom;
 
 -- ============================================================
 -- 4. TABLE : interventions
