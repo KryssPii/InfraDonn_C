@@ -1,12 +1,29 @@
-TRUNCATE TABLE mobilier RESTART IDENTITY CASCADE;
 -- ============================================================
--- 1. TABLE : technicien
+-- 0. REMISE À ZÉRO (dans l'ordre inverse des FK)
 -- ============================================================
 
-TRUNCATE TABLE technicien RESTART IDENTITY CASCADE;
+TRUNCATE TABLE Possession RESTART IDENTITY CASCADE;
+
+TRUNCATE TABLE Signalement RESTART IDENTITY CASCADE;
+
+TRUNCATE TABLE Mobilier RESTART IDENTITY CASCADE;
+
+TRUNCATE TABLE Interventions RESTART IDENTITY CASCADE;
+
+TRUNCATE TABLE Citoyen RESTART IDENTITY CASCADE;
+
+TRUNCATE TABLE Fournisseurs RESTART IDENTITY CASCADE;
+
+TRUNCATE TABLE Technicien RESTART IDENTITY CASCADE;
+
+TRUNCATE TABLE Lieu RESTART IDENTITY CASCADE;
+
+-- ============================================================
+-- 1. TABLE : Technicien (valeurs fixes, pas depuis staging)
+-- ============================================================
 
 INSERT INTO
-    technicien (nom, prenom)
+    Technicien (nom, prenom)
 VALUES ('Bonvin', 'Jean-Marc'),
     ('Alves', 'Pedro'),
     ('Koffi', 'Marc'),
@@ -14,14 +31,14 @@ VALUES ('Bonvin', 'Jean-Marc'),
 ON CONFLICT DO NOTHING;
 
 -- ============================================================
--- 2. TABLE : lieu
+-- 2. TABLE : Lieu  (référentiel fixe tiré de l'inventaire)
 -- ============================================================
 
-ALTER TABLE lieu
-ADD CONSTRAINT IF NOT EXISTS unique_nom UNIQUE (nom);
+ALTER TABLE Lieu
+ADD CONSTRAINT IF NOT EXISTS unique_nom UNIQUE (Nom);
 
 INSERT INTO
-    lieu (nom, latitude, longitude)
+    Lieu (Nom, Latitude, Longitude)
 VALUES (
         'Avenue de la Gare',
         46.78047778,
@@ -37,11 +54,15 @@ VALUES (
         46.77885475,
         6.639355991
     ),
-    ('HEIG-VD', 46.78, 6.66),
+    (
+        'HEIG-VD',
+        46.78000000,
+        6.660000000
+    ),
     (
         'Place de la Gare',
         46.78106843,
-        6.64157228
+        6.641572280
     ),
     (
         'Place Pestalozzi',
@@ -63,11 +84,15 @@ VALUES (
         46.78101226,
         6.655518258
     ),
-    ('Rue Haldimand', 46.78, 6.65),
+    (
+        'Rue Haldimand',
+        46.78000000,
+        6.650000000
+    ),
     (
         'Rue de la Maison Rouge',
-        46.78,
-        6.64
+        46.78000000,
+        6.640000000
     ),
     (
         'Route de Lausanne',
@@ -84,7 +109,11 @@ VALUES (
         46.78490298,
         6.635316069
     ),
-    ('Parc des Rives', 46.78, 6.64),
+    (
+        'Parc des Rives',
+        46.78000000,
+        6.640000000
+    ),
     (
         'Avenue des Bains',
         46.78308929,
@@ -93,7 +122,7 @@ VALUES (
     (
         'Plage d''Yverdon',
         46.78470569,
-        6.63408617
+        6.634086170
     ),
     (
         'Avenue des Sports',
@@ -114,17 +143,44 @@ VALUES (
         'Passage de l''Hôtel de Ville',
         46.78085084,
         6.640507645
-    ),
-    (
-        'Rue de la Maison Rouge',
-        46.77841271,
-        6.640736301
     )
-ON CONFLICT (nom) DO NOTHING;
+ON CONFLICT (Nom) DO NOTHING;
 
 -- ============================================================
--- 3. TABLE : inventaire_mobilier
+-- 3. TABLE : Fournisseurs  (depuis staging.fournisseurs_contacts)
 -- ============================================================
+
+INSERT INTO
+    Fournisseurs (
+        nom_entreprise,
+        contact,
+        telephone,
+        email,
+        type_materiel,
+        remarque
+    )
+SELECT
+    NULLIF(TRIM(entreprise), '') AS nom_entreprise,
+    NULLIF(TRIM(contact), '') AS contact,
+    CASE
+        WHEN TRIM(telephone) LIKE '+41%' THEN REGEXP_REPLACE(telephone, '^\+41\s*', '0')
+        ELSE NULLIF(TRIM(telephone), '')
+    END AS telephone,
+    CASE
+        WHEN TRIM(email) LIKE '%@%' THEN TRIM(email)
+        ELSE NULL
+    END AS email,
+    NULLIF(TRIM(type_materiel), '') AS type_materiel,
+    NULLIF(TRIM(remarques), '') AS remarque
+FROM staging.fournisseurs_contacts
+WHERE
+    NULLIF(TRIM(entreprise), '') IS NOT NULL;
+-- exclut les lignes sans nom
+
+-- ============================================================
+-- 4. TABLE : Mobilier  (depuis staging.inventaire_mobilier)
+-- ============================================================
+
 INSERT INTO
     Mobilier (
         type,
@@ -136,7 +192,7 @@ INSERT INTO
         fk_id_intervention
     )
 SELECT
-    -- Normalisation du type
+    -- Type normalisé
     CASE LOWER(TRIM(s.type))
         WHEN 'banc' THEN 'banc'
         WHEN 'banc public' THEN 'banc'
@@ -158,53 +214,54 @@ SELECT
         WHEN 'panneau affichage' THEN 'panneau'
         ELSE NULL
     END AS type,
-    -- Materiau (on garde tel quel mais on le nettoie et unifie un peu)
-    CASE LOWER(TRIM(s.materiau))
-        WHEN 'bois' THEN 'bois'
-        WHEN 'métal' THEN 'metal'
-        WHEN 'metal' THEN 'metal'
-        ELSE NULLIF(LOWER(TRIM(s.materiau)), '')
-    END AS materiau,
-    -- Etat normalisé
-    CASE LOWER(TRIM(s.etat))
-        WHEN 'bon' THEN 'bon'
-        WHEN 'usé' THEN 'usé'
-        WHEN 'use' THEN 'usé'
-        WHEN 'à remplacer' THEN 'usé'
-        ELSE 'inconnu'
-    END AS etat,
-    -- Date d'installation : on ne traite que les formats sûrs
-    CASE
-        WHEN s.date_installation LIKE '%.%.%' THEN TO_DATE(
-            s.date_installation,
-            'DD.MM.YYYY'
-        )
-        WHEN s.date_installation LIKE '____-__-__' THEN TO_DATE(
-            s.date_installation,
-            'YYYY-MM-DD'
-        )
-        ELSE NULL
-    END AS date_installation,
-    -- Remarque
-    COALESCE(
-        NULLIF(TRIM(s.remarques), ''),
-        'inconnu'
-    ) AS remarque,
-    -- fk_id_lieu via le nom du lieu
-    l.id_lieu AS fk_id_lieu,
-    -- Pour l’instant, pas de lien direct avec une intervention précise
-    NULL AS fk_id_intervention
+
+-- Matériau unifié
+CASE LOWER(TRIM(s.materiau))
+    WHEN 'bois' THEN 'bois'
+    WHEN 'métal' THEN 'metal'
+    WHEN 'metal' THEN 'metal'
+    ELSE NULLIF(LOWER(TRIM(s.materiau)), '')
+END AS materiau,
+
+-- État normalisé ('inconnu' si vide)
+CASE LOWER(TRIM(s.etat))
+    WHEN 'bon' THEN 'bon'
+    WHEN 'usé' THEN 'usé'
+    WHEN 'use' THEN 'usé'
+    WHEN 'à remplacer' THEN 'usé'
+    ELSE 'inconnu'
+END AS etat,
+
+-- Date d'installation : DD.MM.YYYY ou YYYY-MM-DD uniquement
+CASE
+    WHEN s.date_installation LIKE '%.%.%' THEN TO_DATE(
+        s.date_installation,
+        'DD.MM.YYYY'
+    )
+    WHEN s.date_installation LIKE '____-__-__' THEN TO_DATE(
+        s.date_installation,
+        'YYYY-MM-DD'
+    )
+    ELSE NULL -- années seules ('2020') ou mois texte → NULL
+END AS date_installation,
+
+-- Remarque ('inconnu' si vide)
+COALESCE( NULLIF(TRIM(s.remarques), ''), 'inconnu' ) AS remarque,
+
+-- Lien vers Lieu via le nom
+l.id_lieu AS fk_id_lieu,
+
+-- Pas de lien direct avec une intervention pour l'instant
+NULL AS fk_id_intervention
 FROM staging.inventaire_mobilier s
     LEFT JOIN Lieu l ON TRIM(s.lieu) = l.Nom;
 
 -- ============================================================
--- 4. TABLE : interventions
+-- 5. TABLE : Interventions  (depuis staging.interventions)
 -- ============================================================
--- FIX 1 : CASE manquant sur cout_materiel
--- FIX 2 : fk_id_technicien résolu via LEFT JOIN (pas depuis staging)
 
 INSERT INTO
-    interventions (
+    Interventions (
         date,
         objet,
         type_intervention,
@@ -215,70 +272,87 @@ INSERT INTO
         fk_id_technicien
     )
 SELECT
+    -- Date : DD.MM.YYYY ou YYYY-MM-DD
     CASE
         WHEN s.date LIKE '%.%.%' THEN TO_DATE(s.date, 'DD.MM.YYYY')
         ELSE s.date::DATE
-    END,
-    TRIM(s.objet),
-    CASE
-        WHEN LOWER(TRIM(s.type_intervention)) LIKE '%remplacement%' THEN 'remplacement'
-        WHEN LOWER(TRIM(s.type_intervention)) LIKE '%réparation%' THEN 'reparation'
-        WHEN LOWER(TRIM(s.type_intervention)) LIKE '%nettoyage%' THEN 'nettoyage'
-        WHEN LOWER(TRIM(s.type_intervention)) LIKE '%peinture%' THEN 'peinture'
-        WHEN LOWER(TRIM(s.type_intervention)) LIKE '%remise en service%' THEN 'remise en service'
-        WHEN LOWER(TRIM(s.type_intervention)) LIKE '%hivernage%' THEN 'hivernage'
-        WHEN LOWER(TRIM(s.type_intervention)) LIKE '%redressage%' THEN 'redressage'
-        WHEN LOWER(TRIM(s.type_intervention)) LIKE '%mise à jour%' THEN 'mise à jour'
-        WHEN LOWER(TRIM(s.type_intervention)) LIKE '%détartrage%' THEN 'detartrage'
-        ELSE NULL
-    END,
-    CASE TRIM(s.technicien)
-        WHEN 'Alves Pedro' THEN 'Alves Pedro'
-        WHEN 'Pedro' THEN 'Alves Pedro'
-        WHEN 'P. Alves' THEN 'Alves Pedro'
-        WHEN 'Jean-Marc Bonvin' THEN 'Jean-Marc Bonvin'
-        WHEN 'Jean-Marc' THEN 'Jean-Marc Bonvin'
-        WHEN 'JM' THEN 'Jean-Marc Bonvin'
-        WHEN 'Koffi Marc' THEN 'Koffi Marc'
-        WHEN 'Marc' THEN 'Koffi Marc'
-        WHEN 'stagiaire' THEN 'Stagiaire'
-        ELSE NULL
-    END,
-    CASE
-        WHEN TRIM(s.duree) LIKE '%h%' THEN REPLACE(
-            REPLACE(s.duree, 'h', ''),
-            ' ',
-            ''
-        )::NUMERIC * 60
-        WHEN TRIM(s.duree) LIKE '%min%' THEN REPLACE(
-            REPLACE(s.duree, 'min', ''),
-            ' ',
-            ''
-        )::NUMERIC
-        ELSE NULL
-    END,
+    END AS date,
 
--- FIX : mot-clé CASE manquant dans l'original
+-- Objet (texte brut nettoyé)
+TRIM(s.objet) AS objet,
+
+-- Type d'intervention normalisé
 CASE
-    WHEN LOWER(TRIM(s.cout_materiel)) IN ('null', '')
-    OR s.cout_materiel IS NULL THEN 0
+    WHEN LOWER(TRIM(s.type_intervention)) LIKE '%remplacement%' THEN 'remplacement'
+    WHEN LOWER(TRIM(s.type_intervention)) LIKE '%réparation%' THEN 'reparation'
+    WHEN LOWER(TRIM(s.type_intervention)) LIKE '%reparation%' THEN 'reparation'
+    WHEN LOWER(TRIM(s.type_intervention)) LIKE '%nettoyage%' THEN 'nettoyage'
+    WHEN LOWER(TRIM(s.type_intervention)) LIKE '%peinture%' THEN 'peinture'
+    WHEN LOWER(TRIM(s.type_intervention)) LIKE '%remise en service%' THEN 'remise en service'
+    WHEN LOWER(TRIM(s.type_intervention)) LIKE '%hivernage%' THEN 'hivernage'
+    WHEN LOWER(TRIM(s.type_intervention)) LIKE '%redressage%' THEN 'redressage'
+    WHEN LOWER(TRIM(s.type_intervention)) LIKE '%mise à jour%' THEN 'mise à jour'
+    WHEN LOWER(TRIM(s.type_intervention)) LIKE '%détartrage%' THEN 'detartrage'
+    WHEN LOWER(TRIM(s.type_intervention)) LIKE '%detartrage%' THEN 'detartrage'
+    WHEN LOWER(TRIM(s.type_intervention)) LIKE '%réparation fuite%' THEN 'reparation'
+    ELSE NULL
+END AS type_intervention,
+
+-- Technicien : nom affiché normalisé
+CASE TRIM(s.technicien)
+    WHEN 'Alves Pedro' THEN 'Alves Pedro'
+    WHEN 'Pedro' THEN 'Alves Pedro'
+    WHEN 'P. Alves' THEN 'Alves Pedro'
+    WHEN 'Jean-Marc Bonvin' THEN 'Jean-Marc Bonvin'
+    WHEN 'Jean-Marc' THEN 'Jean-Marc Bonvin'
+    WHEN 'JM' THEN 'Jean-Marc Bonvin'
+    WHEN 'Koffi Marc' THEN 'Koffi Marc'
+    WHEN 'Marc' THEN 'Koffi Marc'
+    WHEN 'stagiaire' THEN 'Stagiaire'
+    WHEN 'Stagiaire' THEN 'Stagiaire'
+    ELSE NULL
+END AS technicien,
+
+-- Durée convertie en minutes (INTEGER)
+-- Cas traités : '2h', '1h30', '30 min', '3h'
+-- Cas ignorés : 'une matinée', 'une journée' → NULL
+CASE
+    WHEN TRIM(s.duree) ~ '^\d+h\d+$' THEN (
+        SPLIT_PART(TRIM(s.duree), 'h', 1)::INT * 60 + SPLIT_PART(TRIM(s.duree), 'h', 2)::INT
+    )
+    WHEN TRIM(s.duree) ~ '^\d+h$' THEN REPLACE(TRIM(s.duree), 'h', '')::INT * 60
+    WHEN TRIM(s.duree) ~ '^\d+\s*min$' THEN REGEXP_REPLACE(
+        TRIM(s.duree),
+        '[^0-9]',
+        '',
+        'g'
+    )::INT
+    ELSE NULL
+END AS duree,
+
+-- Coût matériel : extraction numérique, 0 si vide/garantie
+CASE
+    WHEN s.cout_materiel IS NULL
+    OR LOWER(TRIM(s.cout_materiel)) IN ('null', '', 'garantie') THEN 0
     ELSE NULLIF(
         REGEXP_REPLACE(
             s.cout_materiel,
-            '[^0-9.]+',
+            '[^0-9.]',
             '',
             'g'
         ),
         ''
     )::NUMERIC
-END,
-TRIM(s.remarque),
+END AS cout_materiel,
 
--- FIX : résolution de l'id via JOIN au lieu de lire depuis staging
+-- Remarque (colonne s'appelle 'remarques' dans staging)
+NULLIF(TRIM(s.remarques), '') AS remarque,
+
+-- Clé étrangère : résolution via JOIN sur Technicien
 t.id_technicien
 FROM
     staging.interventions s
-    LEFT JOIN technicien t ON CONCAT(t.nom, ' ', t.prenom) = CASE TRIM(s.technicien)
+    LEFT JOIN Technicien t ON CONCAT(t.nom, ' ', t.prenom) = CASE TRIM(s.technicien)
         WHEN 'Alves Pedro' THEN 'Alves Pedro'
         WHEN 'Pedro' THEN 'Alves Pedro'
         WHEN 'P. Alves' THEN 'Alves Pedro'
@@ -288,14 +362,38 @@ FROM
         WHEN 'Koffi Marc' THEN 'Koffi Marc'
         WHEN 'Marc' THEN 'Koffi Marc'
         WHEN 'stagiaire' THEN 'Stagiaire '
+        WHEN 'Stagiaire' THEN 'Stagiaire '
         ELSE NULL
     END;
 
 -- ============================================================
--- 5. TABLE : signalements
+-- 6. TABLE : Citoyen  (référentiel déduit de staging.signalements)
 -- ============================================================
+
 INSERT INTO
-    signalement (
+    Citoyen (nom_signalement, nom_contact)
+SELECT DISTINCT
+    -- Catégorie générique du déclarant
+    CASE
+        WHEN LOWER(TRIM(signale_par)) LIKE '%email%' THEN 'email'
+        WHEN LOWER(TRIM(signale_par)) LIKE '%concierge%' THEN 'concierge'
+        WHEN LOWER(TRIM(signale_par)) LIKE '%habitant%' THEN 'habitant'
+        WHEN LOWER(TRIM(signale_par)) LIKE '%passant%' THEN 'passant'
+        WHEN LOWER(TRIM(signale_par)) LIKE '%patrouille%' THEN 'patrouille'
+        ELSE 'autre'
+    END AS nom_signalement,
+    -- Nom exact du déclarant conservé tel quel
+    NULLIF(TRIM(signale_par), '') AS nom_contact
+FROM staging.signalements
+WHERE
+    NULLIF(TRIM(signale_par), '') IS NOT NULL;
+
+-- ============================================================
+-- 7. TABLE : Signalement  (depuis staging.signalements)
+-- ============================================================
+
+INSERT INTO
+    Signalement (
         date,
         signale_par,
         objet,
@@ -306,114 +404,59 @@ INSERT INTO
         fk_id_mobilier
     )
 SELECT
-    -- Date
+    -- Date : DD.MM.YYYY ou YYYY-MM-DD
     CASE
         WHEN s.date LIKE '%.%.%' THEN TO_DATE(s.date, 'DD.MM.YYYY')
         WHEN s.date LIKE '____-__-__' THEN TO_DATE(s.date, 'YYYY-MM-DD')
         ELSE NULL
     END AS date,
-    CASE LOWER(TRIM(signale_par))
-        WHEN '%email%' THEN 'email'
-        WHEN '%concierge%' THEN 'concierge'
-        WHEN '%habitant%' THEN 'habitant'
-        WHEN '%passant%' THEN 'passant'
-        WHEN '%partrouille%' THEN 'patrouille'
-        WHEN '%Weber%' THEN 'Weber'
-        WHEN '%Rochat%' THEN 'Rochat'
-        WHEN '%Pereira%' THEN 'Pereira'
-        WHEN '%Dupont%' THEN 'Dupont'
-    -- signale_par (texte "brut" nettoyé)
-    NULLIF(TRIM(s.signale_par), '') AS signale_par,
-    END,
-    -- objet et description
-        CASE
-        WHEN LOWER(TRIM(objet)) LIKE '%banc%' THEN 'banc'
-        WHEN LOWER(TRIM(objet)) LIKE '%lampadaire%' THEN 'lampadaire'
-        WHEN LOWER(TRIM(objet)) LIKE '%poubelle%' THEN 'poubelle'
-        WHEN LOWER(TRIM(objet)) LIKE '%fontaine%' THEN 'fontaine'
-        WHEN LOWER(TRIM(objet)) LIKE '%borne%' THEN 'borne'
-        WHEN LOWER(TRIM(objet)) LIKE '%panneau%' THEN 'panneau'
-        ELSE NULL
-    TRIM(s.objet) AS objet,
-    END,
-    NULLIF(TRIM(s.description), '') AS description,
-    -- urgence normalisée
-    CASE LOWER(TRIM(s.urgence))
-        WHEN 'urgent' THEN 'urgent'
-        WHEN 'normal' THEN 'normal'
-        ELSE 'non renseigné'
-    END AS urgence,
-    -- statut normalisé
-    CASE LOWER(TRIM(s.statut))
-        WHEN 'fait' THEN 'fait'
-        WHEN 'en attente' THEN 'en attente'
-        WHEN 'en cours' THEN 'en cours'
-        ELSE 'non renseigné'
-    END AS statut,
-    -- fk_id_citoyen : match approximatif sur le champ signale_par
-    c.id_citoyen,
-    -- fk_id_mobilier : pour l’instant, non relié
-    NULL AS fk_id_mobilier
+
+-- Déclarant (texte brut nettoyé)
+NULLIF(TRIM(s.signale_par), '') AS signale_par,
+
+-- Objet tel quel (texte libre)
+TRIM(s.objet) AS objet,
+
+-- Description
+NULLIF(TRIM(s.description), '') AS description,
+
+-- Urgence normalisée
+CASE LOWER(TRIM(s.urgence))
+    WHEN 'urgent' THEN 'urgent'
+    WHEN 'normal' THEN 'normal'
+    ELSE 'non renseigné'
+END AS urgence,
+
+-- Statut normalisé
+CASE LOWER(TRIM(s.statut))
+    WHEN 'fait' THEN 'fait'
+    WHEN 'en attente' THEN 'en attente'
+    WHEN 'en cours' THEN 'en cours'
+    ELSE 'non renseigné'
+END AS statut,
+
+-- Clé étrangère vers Citoyen
+c.id_citoyen AS fk_id_citoyen,
+
+-- Pas de lien mobilier pour l'instant
+NULL AS fk_id_mobilier
 FROM staging.signalements s
     LEFT JOIN Citoyen c ON NULLIF(TRIM(s.signale_par), '') = c.nom_contact
-WHERE
-    -- on filtre les lignes où la date n'a pas pu être interprétée
-    (
+
+-- On n'insère que les lignes dont la date peut être parsée (évite NOT NULL violation)
+WHERE (
         (
             s.date LIKE '%.%.%'
-            AND TO_DATE(s.date, 'DD.MM.YYYY') IS NOT NULL
+            AND LENGTH(TRIM(s.date)) = 10
         )
         OR (
             s.date LIKE '____-__-__'
-            AND TO_DATE(s.date, 'YYYY-MM-DD') IS NOT NULL
+            AND LENGTH(TRIM(s.date)) = 10
         )
     );
--- ============================================================
--- 6. TABLE : mobilier (types distincts depuis fournisseurs)
--- ============================================================
-
-INSERT INTO
-    mobilier (type)
-SELECT DISTINCT
-    CASE
-        WHEN TRIM(type_materiel) LIKE '%banc%' THEN 'banc'
-        WHEN TRIM(type_materiel) LIKE '%lampadaire%' THEN 'lampadaire'
-        WHEN TRIM(type_materiel) LIKE '%poubelle%' THEN 'poubelle'
-        WHEN TRIM(type_materiel) LIKE '%fontaine%' THEN 'fontaine'
-        WHEN TRIM(type_materiel) LIKE '%borne%' THEN 'borne'
-        WHEN TRIM(type_materiel) LIKE '%panneau%' THEN 'panneau'
-        ELSE NULL
-    END
-FROM fournisseurs
-WHERE
-    type_materiel IS NOT NULL
-ON CONFLICT DO NOTHING;
 
 -- ============================================================
--- 7. TABLE : fournisseurs_contacts
+-- 8. TABLE : Possession  (liaison Fournisseurs <-> Mobilier)
+-- Pas de donnée directe dans les CSV → table laissée vide.
+-- À compléter manuellement ou via une règle métier future.
 -- ============================================================
-INSERT INTO
-    fournisseurs (
-        nom_entreprise,
-        contact,
-        telephone,
-        email,
-        type_materiel,
-        remarque
-    )
-SELECT
-    NULLIF(TRIM(entreprise), '') AS nom_entreprise,
-    NULLIF(TRIM(contact), '') AS contact,
-    CASE
-        WHEN TRIM(telephone) LIKE '+41%' THEN REGEXP_REPLACE(telephone, '^\+41\s*', '0')
-        ELSE NULLIF(TRIM(telephone), '')
-    END AS telephone,
-    CASE
-        WHEN TRIM(email) LIKE '%@%' THEN TRIM(email)
-        ELSE 'inconnue'
-    END AS email,
-    NULLIF(TRIM(type_materiel), '') AS type_materiel,
-    NULLIF(TRIM(remarques), '') AS remarque
-FROM staging.fournisseurs_contacts
-WHERE
-    NULLIF(TRIM(entreprise), '') IS NOT NULL;
