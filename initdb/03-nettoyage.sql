@@ -294,24 +294,80 @@ FROM
 -- ============================================================
 -- 5. TABLE : signalements
 -- ============================================================
-
 INSERT INTO
-    signalements (signale_par)
+    signalement (
+        date,
+        signale_par,
+        objet,
+        description,
+        urgence,
+        statut,
+        fk_id_citoyen,
+        fk_id_mobilier
+    )
 SELECT
+    -- Date
     CASE
-        WHEN LOWER(TRIM(signale_par)) LIKE '%email%' THEN 'email'
-        WHEN LOWER(TRIM(signale_par)) LIKE '%concierge%' THEN 'concierge'
-        WHEN LOWER(TRIM(signale_par)) LIKE '%habitant%' THEN 'habitant'
-        WHEN LOWER(TRIM(signale_par)) LIKE '%passant%' THEN 'passant'
-        WHEN LOWER(TRIM(signale_par)) LIKE '%patrouille%' THEN 'patrouille'
-        WHEN LOWER(TRIM(signale_par)) LIKE '%weber%' THEN 'Weber'
-        WHEN LOWER(TRIM(signale_par)) LIKE '%rochat%' THEN 'Rochat'
-        WHEN LOWER(TRIM(signale_par)) LIKE '%pereira%' THEN 'Pereira'
-        WHEN LOWER(TRIM(signale_par)) LIKE '%dupont%' THEN 'Dupont'
+        WHEN s.date LIKE '%.%.%' THEN TO_DATE(s.date, 'DD.MM.YYYY')
+        WHEN s.date LIKE '____-__-__' THEN TO_DATE(s.date, 'YYYY-MM-DD')
         ELSE NULL
-    END
-FROM staging.signalements;
-
+    END AS date,
+    CASE LOWER(TRIM(signale_par))
+        WHEN '%email%' THEN 'email'
+        WHEN '%concierge%' THEN 'concierge'
+        WHEN '%habitant%' THEN 'habitant'
+        WHEN '%passant%' THEN 'passant'
+        WHEN '%partrouille%' THEN 'patrouille'
+        WHEN '%Weber%' THEN 'Weber'
+        WHEN '%Rochat%' THEN 'Rochat'
+        WHEN '%Pereira%' THEN 'Pereira'
+        WHEN '%Dupont%' THEN 'Dupont'
+    -- signale_par (texte "brut" nettoyé)
+    NULLIF(TRIM(s.signale_par), '') AS signale_par,
+    END,
+    -- objet et description
+        CASE
+        WHEN LOWER(TRIM(objet)) LIKE '%banc%' THEN 'banc'
+        WHEN LOWER(TRIM(objet)) LIKE '%lampadaire%' THEN 'lampadaire'
+        WHEN LOWER(TRIM(objet)) LIKE '%poubelle%' THEN 'poubelle'
+        WHEN LOWER(TRIM(objet)) LIKE '%fontaine%' THEN 'fontaine'
+        WHEN LOWER(TRIM(objet)) LIKE '%borne%' THEN 'borne'
+        WHEN LOWER(TRIM(objet)) LIKE '%panneau%' THEN 'panneau'
+        ELSE NULL
+    TRIM(s.objet) AS objet,
+    END,
+    NULLIF(TRIM(s.description), '') AS description,
+    -- urgence normalisée
+    CASE LOWER(TRIM(s.urgence))
+        WHEN 'urgent' THEN 'urgent'
+        WHEN 'normal' THEN 'normal'
+        ELSE 'non renseigné'
+    END AS urgence,
+    -- statut normalisé
+    CASE LOWER(TRIM(s.statut))
+        WHEN 'fait' THEN 'fait'
+        WHEN 'en attente' THEN 'en attente'
+        WHEN 'en cours' THEN 'en cours'
+        ELSE 'non renseigné'
+    END AS statut,
+    -- fk_id_citoyen : match approximatif sur le champ signale_par
+    c.id_citoyen,
+    -- fk_id_mobilier : pour l’instant, non relié
+    NULL AS fk_id_mobilier
+FROM staging.signalements s
+    LEFT JOIN Citoyen c ON NULLIF(TRIM(s.signale_par), '') = c.nom_contact
+WHERE
+    -- on filtre les lignes où la date n'a pas pu être interprétée
+    (
+        (
+            s.date LIKE '%.%.%'
+            AND TO_DATE(s.date, 'DD.MM.YYYY') IS NOT NULL
+        )
+        OR (
+            s.date LIKE '____-__-__'
+            AND TO_DATE(s.date, 'YYYY-MM-DD') IS NOT NULL
+        )
+    );
 -- ============================================================
 -- 6. TABLE : mobilier (types distincts depuis fournisseurs)
 -- ============================================================
