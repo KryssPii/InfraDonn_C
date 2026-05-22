@@ -1,49 +1,33 @@
--- Active: 1772190090385@@127.0.0.1@5432@infradon
 --Tableau Inventaire mobilier
-INSERT INTO
-    mobilier (
-        type,
-        materiau,
-        etat,
-        date_installation
-    )
 SELECT
+    ROUND(
+        REPLACE(latitude, ',', '.')::NUMERIC,
+        4
+    ),
+    ROUND(
+        REPLACE(longitude, ',', '.')::NUMERIC,
+        4
+    ),
     CASE LOWER(TRIM(type))
         WHEN 'banc' THEN 'banc'
         WHEN 'banc public' THEN 'banc'
         WHEN 'lampadaire' THEN 'lampadaire'
         WHEN 'lampadaire led' THEN 'lampadaire'
-        WHEN 'lampadaire LED' THEN 'lampadaire'
+        WHEN 'lampadaire sodium' THEN 'lampadaire'
         WHEN 'poubelle' THEN 'poubelle'
         WHEN 'poubelle tri' THEN 'poubelle'
         WHEN 'corbeille' THEN 'poubelle'
-        WHEN 'lampadaire sodium' THEN 'lampadaire'
         WHEN 'fontaine' THEN 'fontaine'
         WHEN 'fontaine publique' THEN 'fontaine'
-        WHEN 'borne EV' THEN 'borne'
-        WHEN 'Borne recharge' THEN 'borne'
-        WHEN 'borne recharge EV' THEN 'borne'
-        WHEN 'Panneau' THEN 'panneau'
+        WHEN 'borne ev' THEN 'borne'
+        WHEN 'borne e.v.' THEN 'borne'
+        WHEN 'borne recharge' THEN 'borne'
+        WHEN 'borne recharge ev' THEN 'borne'
+        WHEN 'borne recharge e.v.' THEN 'borne'
+        WHEN 'panneau' THEN 'panneau'
         WHEN 'panneau info' THEN 'panneau'
         WHEN 'panneau affichage' THEN 'panneau'
         ELSE NULL
-    END,
-    CASE LOWER(TRIM(materiau))
-        WHEN 'bois' THEN 'bois'
-        WHEN 'métal' THEN 'métal'
-        WHEN 'Métal' THEN 'métal'
-        WHEN 'metal' THEN 'métal'
-        WHEN 'sodium' THEN 'sodium'
-        WHEN 'LED' THEN 'LED'
-    END,
-    CASE LOWER(TRIM(etat))
-        WHEN 'à remplacer' THEN 'usé'
-        WHEN 'use' THEN 'usé'
-        WHEN 'usé' THEN 'usé'
-        WHEN 'bon' THEN 'bon'
-        ELSE NULL
-    END,
-    CASE
         WHEN date_installation LIKE '%.%.%' THEN TO_DATE(
             date_installation,
             'DD.MM.YYYY'
@@ -53,10 +37,18 @@ SELECT
             'YYYY-MM-DD'
         )
         ELSE NULL
+    END,
+    CASE LOWER(TRIM(etat))
+        WHEN 'à remplacer' THEN 'usé'
+        WHEN 'use' THEN 'usé'
+        WHEN 'usé' THEN 'usé'
+        WHEN 'bon' THEN 'bon'
+        ELSE NULL
     END
-FROM staging.inventaire_mobilier;
+FROM inventaire_mobilier
     --Tableau des lieu
 
+-- Ensure that each location name in the 'Lieu' table is unique
 ALTER TABLE Lieu ADD CONSTRAINT unique_nom UNIQUE (Nom);
 
 INSERT INTO
@@ -153,101 +145,19 @@ VALUES (
         'Passage de l''Hôtel de Ville',
         46.78085084,
         6.640507645
-    ),
-    (
-        'Rue de la Maison Rouge',
-        46.77841271,
-        6.640736301
-    )
+(
+    'Rue de la Maison Rouge',
+    46.77841271,
+    6.640736301
+)
+ON CONFLICT (Nom) DO NOTHING;
+
 ON CONFLICT (Nom) DO NOTHING;
 
 --Tableau Interventions
-
-INSERT INTO
-    public.interventions (
-        date,
-        objet,
-        type_intervention,
-        duree,
-        cout_materiel
-    )
-    SELECT
-    --Modification format dates 
-    CASE
-        WHEN date LIKE '%.%.%' THEN TO_DATE(date, 'DD.MM.YYYY')
-        WHEN date LIKE '%/%/%' THEN TO_DATE(date, 'DD.MM.YYYY')
-        WHEN date IS NULL THEN TO_DATE('01.01.1970', 'DD.MM.YYYY')
-        WHEN date LIKE '____-__-__' THEN TO_DATE(date, 'YYYY-MM-DD')
-        ELSE NULL
-    END,
-
-    CASE
-        WHEN  LOWER(TRIM(objet)) LIKE '%banc%' THEN 'banc'
-        WHEN LOWER(TRIM(objet)) LIKE '%lampadaire%' THEN 'lampadaire'
-        WHEN  LOWER(TRIM(objet)) LIKE '%poubelle%' THEN 'poubelle'
-        WHEN LOWER(TRIM(objet)) LIKE '%fontaine%' THEN 'fontaine'
-        WHEN  LOWER(TRIM(objet)) LIKE '%borne%' THEN 'borne'
-        WHEN  LOWER(TRIM(objet)) LIKE '%panneau%' THEN 'panneau'
-        ELSE NULL
-        END,
-CASE
-        WHEN (TRIM(type_intervention)) LIKE '%remplacement%' THEN 'remplacement'
-        WHEN (TRIM(type_intervention)) LIKE '%réparation%' THEN 'reparation'
-        WHEN (TRIM(type_intervention)) LIKE '%Réparation%' THEN 'reparation'
-        WHEN (TRIM(type_intervention)) LIKE '%nettoyage%' THEN 'nettoyage'
-        WHEN (TRIM(type_intervention)) LIKE '%peinture%' THEN 'peinture'
-        WHEN (TRIM(type_intervention)) LIKE '%remise en service%' THEN 'remise en service'
-        WHEN (TRIM(type_intervention)) LIKE '%hivernage%' THEN 'hivernage'
-        WHEN (TRIM(type_intervention)) LIKE '%redressage%' THEN 'redressage'
-        WHEN (TRIM(type_intervention)) LIKE '%mise à jour%' THEN 'mise à jour'
-        WHEN (TRIM(type_intervention)) LIKE '%détartrage%' THEN 'detartrage'
-        ELSE NULL
-    END,
-      CASE
-        WHEN (TRIM(duree)) LIKE '%h%' THEN REPLACE(duree, 'h', '')::NUMERIC * 60
-        WHEN (TRIM(duree)) LIKE '%min%' THEN REPLACE(duree, 'min', '')::NUMERIC
-        WHEN(TRIM(duree)) LIKE '%matinée%' THEN 240
-        WHEN(TRIM(duree)) LIKE '%journée%' THEN 480
-        ELSE NULL
-    END,
-    (CASE 
-        WHEN cout_materiel LIKE 'garantie' THEN  '0'
-        WHEN cout_materiel LIKE 'gratuit' THEN '0'
-        ELSE    COALESCE(
-        REGEXP_REPLACE(
-            NULLIF(cout_materiel,''),
-            '[^0-9]+',
-            '',
-            'g'
-        ),
-        '0'
-        )
-    END)::NUMERIC -- Supprimer tout sauf les chiffres, puis caster
-FROM staging.interventions;
-
-
-
-
-
-
-    --Tableau des signalements 
-INSERT INTO
-    signalements (signale_par)
+-- Requête 1 : interventions
 SELECT
-     SELECT CASE LOWER(TRIM(type))    CASE LOWER(TRIM(signale_par))
-        WHEN '%email%' THEN 'email'
-        WHEN '%concierge%' THEN 'concierge'
-        WHEN '%habitant%' THEN 'habitant'
-        WHEN '%passant%' THEN 'passant'
-        WHEN '%partrouille%' THEN 'patrouille'
-        WHEN '%Weber%' THEN 'Weber'
-        WHEN '%Rochat%' THEN 'Rochat'
-        WHEN '%Pereira%' THEN 'Pereira'
-        WHEN '%Dupont%' THEN 'Dupont'
-    END
-FROM staging.signalements
-
- CASE (TRIM(technicien))
+    CASE TRIM(technicien)
         WHEN 'Alves Pedro' THEN 'Alves Pedro'
         WHEN 'Pedro' THEN 'Alves Pedro'
         WHEN 'P. Alves' THEN 'Alves Pedro'
@@ -256,27 +166,194 @@ FROM staging.signalements
         WHEN 'JM' THEN 'Jean-Marc Bonvin'
         WHEN 'stagiaire' THEN 'stagiaire'
         ELSE NULL
-    END
--- Supprimer tout sauf les chiffres, puis caster
+    END AS technicien,
+    CASE
+        WHEN date LIKE '%.%.%' THEN TO_DATE(date, 'DD.MM.YYYY')
+        ELSE date::DATE
+    END AS date,
+    COALESCE(
+        NULLIF(
+            REGEXP_REPLACE(
+                cout_materiel,
+                '[^0-9]+',
+                '',
+                'g'
+            ),
+            ''
+        ),
+        '0'
+    )::NUMERIC AS cout_materiel
+FROM staging.interventions;
 
+-- Requête 2 : signalements
+SELECT
+    CASE
+        WHEN LOWER(TRIM(signale_par)) LIKE '%email%' THEN 'email'
+        WHEN LOWER(TRIM(signale_par)) LIKE '%concierge%' THEN 'concierge'
+        WHEN LOWER(TRIM(signale_par)) LIKE '%habitant%' THEN 'habitant'
+        WHEN LOWER(TRIM(signale_par)) LIKE '%passant%' THEN 'passant'
+        WHEN LOWER(TRIM(signale_par)) LIKE '%patrouille%' THEN 'patrouille'
+        WHEN LOWER(TRIM(signale_par)) LIKE '%weber%' THEN 'Weber'
+        WHEN LOWER(TRIM(signale_par)) LIKE '%rochat%' THEN 'Rochat'
+        WHEN LOWER(TRIM(signale_par)) LIKE '%pereira%' THEN 'Pereira'
+        WHEN LOWER(TRIM(signale_par)) LIKE '%dupont%' THEN 'Dupont'
+        ELSE NULL
+    END AS signale_par
+FROM staging.signalements;
 
+-- Requête 3 : mobilier
+SELECT
+    ROUND(
+        REPLACE(latitude, ',', '.')::NUMERIC,
+        4
+    ) AS latitude,
+    ROUND(
+        REPLACE(longitude, ',', '.')::NUMERIC,
+        4
+    ) AS longitude,
+    CASE LOWER(TRIM(type))
+        WHEN 'banc' THEN 'banc'
+        WHEN 'banc public' THEN 'banc'
+        WHEN 'lampadaire' THEN 'lampadaire'
+        WHEN 'lampadaire led' THEN 'lampadaire'
+        WHEN 'lampadaire sodium' THEN 'lampadaire'
+        WHEN 'poubelle' THEN 'poubelle'
+        WHEN 'poubelle tri' THEN 'poubelle'
+        WHEN 'corbeille' THEN 'poubelle'
+        WHEN 'fontaine' THEN 'fontaine'
+        WHEN 'fontaine publique' THEN 'fontaine'
+        WHEN 'borne ev' THEN 'borne'
+        WHEN 'borne recharge' THEN 'borne'
+        WHEN 'borne recharge ev' THEN 'borne'
+        WHEN 'panneau' THEN 'panneau'
+        WHEN 'panneau info' THEN 'panneau'
+        WHEN 'panneau affichage' THEN 'panneau'
+        ELSE NULL
+    END AS type,
+    CASE LOWER(TRIM(etat))
+        WHEN 'bon' THEN 'bon'
+        WHEN 'usé' THEN 'usé'
+        WHEN 'à remplacer' THEN 'usé'
+        ELSE NULL
+    END AS etat
+FROM staging.inventaire_mobilier;
 
+--Mettre les techniciens dans le tableau
+-- INSERT INTO
+--     Technicien (nom, prenom)
+-- VALUES ('Bonvin', 'Jean-Marc'),
+--     ('Alves', 'Pedro'),
+--     ('Koffi', 'Marc'),
+--     ('Stagiaire', '');
+
+-- SELECT
+--     CASE (TRIM(technicien))
+--         WHEN 'Alves Pedro' THEN 'Alves Pedro'
+--         WHEN 'Pedro' THEN 'Alves Pedro'
+--         WHEN 'P. Alves' THEN 'Alves Pedro'
+--         WHEN 'Jean-Marc Bonvin' THEN 'Jean-Marc Bonvin'
+--         WHEN 'Jean-Marc' THEN 'Jean-Marc Bonvin'
+--         WHEN 'JM' THEN 'Jean-Marc Bonvin'
+--         WHEN 'stagiaire' THEN 'stagiaire'
+--         ELSE NULL
+--     END,
+INSERT INTO
+    interventions (
+        date,
+        objet,
+        type_intervention,
+        technicien,
+        duree,
+        cout_materiel,
+        remarque,
+        fk_id_technicien
+    )
+SELECT
+    -- Date : cast direct
+    date::DATE,
+
+-- Objet : nettoyage des espaces
+TRIM(objet),
+
+-- Type d'intervention : normalisation des valeurs
+CASE
+    WHEN LOWER(TRIM(type_intervention)) LIKE '%remplacement%' THEN 'remplacement'
+    WHEN LOWER(TRIM(type_intervention)) LIKE '%réparation%' THEN 'reparation'
+    WHEN LOWER(TRIM(type_intervention)) LIKE '%nettoyage%' THEN 'nettoyage'
+    WHEN LOWER(TRIM(type_intervention)) LIKE '%peinture%' THEN 'peinture'
+    WHEN LOWER(TRIM(type_intervention)) LIKE '%remise en service%' THEN 'remise en service'
+    WHEN LOWER(TRIM(type_intervention)) LIKE '%hivernage%' THEN 'hivernage'
+    WHEN LOWER(TRIM(type_intervention)) LIKE '%redressage%' THEN 'redressage'
+    WHEN LOWER(TRIM(type_intervention)) LIKE '%mise à jour%' THEN 'mise à jour'
+    WHEN LOWER(TRIM(type_intervention)) LIKE '%détartrage%' THEN 'detartrage'
+    ELSE NULL
+END,
+
+-- Technicien : normalisation des noms
+CASE TRIM(technicien)
+    WHEN 'Alves Pedro' THEN 'Alves Pedro'
+    WHEN 'Pedro' THEN 'Alves Pedro'
+    WHEN 'P. Alves' THEN 'Alves Pedro'
+    WHEN 'Jean-Marc Bonvin' THEN 'Jean-Marc Bonvin'
+    WHEN 'Jean-Marc' THEN 'Jean-Marc Bonvin'
+    WHEN 'JM' THEN 'Jean-Marc Bonvin'
+    WHEN 'stagiaire' THEN 'stagiaire'
+    ELSE NULL
+END,
+
+-- Durée : conversion en minutes (INTEGER)
+CASE
+    WHEN TRIM(duree) LIKE '%h%' THEN REPLACE(
+        REPLACE(duree, 'h', ''),
+        ' ',
+        ''
+    )::NUMERIC * 60
+    WHEN TRIM(duree) LIKE '%min%' THEN REPLACE(
+        REPLACE(duree, 'min', ''),
+        ' ',
+        ''
+    )::NUMERIC
+    ELSE NULL
+END,
+
+-- Coût matériel : suppression des caractères non numériques
+WHEN LOWER(TRIM(cout_materiel)) IN ('null', '')
+OR cout_materiel IS NULL THEN 0
+OR cout_materiel IS NULL THEN 0 ELSE NULLIF(
+    REGEXP_REPLACE(
+        cout_materiel,
+        '[^0-9.]+',
+        '',
+        'g'
+    ),
+    ''
+)::NUMERIC END,
+
+-- Remarque : texte brut
+TRIM(remarque),
+
+-- Clé étrangère technicien
+fk_id_technicien FROM staging.interventions;
+
+--Tableau fournisseurs
+--Telephone fourniseurs
 SELECT
     CASE
         WHEN LOWER(TRIM(telephone)) LIKE '+41%' THEN REPLACE(telephone, '+41 ', '0')
-        ELSE telephone
+        WHEN LOWER(TRIM(telephone)) LIKE '+41%' THEN REGEXP_REPLACE(telephone, '^\+41\s*', '0')
     END
 FROM fournisseurs_contacts
-
+    --Mail fournisseurs 
 SELECT
     CASE
         WHEN (TRIM(email)) LIKE '%@%' THEN (TRIM(email))
         ELSE NULL
     END
 FROM fournisseurs_contacts
-
+    --Mobilier dans fourniseurs 
+    -- Insert distinct types of mobilier from fournisseurs into the mobilier table
 INSERT INTO
-    fournisseurs (type_materiel)
+    mobilier (type)
 SELECT DISTINCT
     CASE
         WHEN (TRIM(type_materiel)) LIKE '%banc%' THEN 'banc'
