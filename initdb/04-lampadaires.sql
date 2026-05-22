@@ -1,10 +1,4 @@
 -- ============================================================
--- 04-lampadaires.sql
--- Brief C — Plan de remplacement des lampadaires
--- Exécuter APRÈS 01-schema.sql, 02-staging.sql, 03-nettoyage.sql
--- ============================================================
-
--- ============================================================
 -- VUE 1 : v_lampadaires_detail
 -- Fiche technique de chaque lampadaire
 -- ============================================================
@@ -53,18 +47,18 @@ GROUP BY
 -- VUE 2 : v_lampadaires_priorite
 -- Score = nb_pannes × 3 + âge × 2 + coût_cumulé / 100
 -- ============================================================
-CREATE OR REPLACE VIEW v_lampadaires_priorite AS SELECT d.*,
-
--- Âge en années (référence 2026)
-(2026 - d.annee_installation) AS age_annees,
-
--- Score de priorité
-ROUND(
-    (d.nb_pannes * 3) + (
-        (2026 - d.annee_installation) * 2
-    ) + (d.cout_cumule / 100.0),
-    2
-) AS score_priorite
+CREATE OR REPLACE VIEW v_lampadaires_priorite AS
+SELECT
+    d.*,
+    -- Âge en années (référence 2026)
+    (2026 - d.annee_installation) AS age_annees,
+    -- Score de priorité
+    ROUND(
+        (d.nb_pannes * 3) + (
+            (2026 - d.annee_installation) * 2
+        ) + (d.cout_cumule / 100.0),
+        2
+    ) AS score_priorite
 FROM v_lampadaires_detail d
 ORDER BY score_priorite DESC;
 
